@@ -1,0 +1,603 @@
+<!doctype html>
+<html lang="zh-Hant">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>史哲政 Zhe-Zheng Shi — 可稽核 AI · 視覺語言模型 · 安全關鍵自主系統</title>
+    <meta
+      name="description"
+      content="國立臺北科技大學自動化科技研究所碩士。研究視覺語言模型於安全關鍵控制的可稽核性，發現並刻畫語義-幾何衝突與幾何崩潰失效機制。"
+    />
+    <meta name="author" content="史哲政 Zhe-Zheng Shi" />
+
+    <meta property="og:type" content="profile" />
+    <meta property="og:title" content="史哲政 Zhe-Zheng Shi" />
+    <meta property="og:description" content="可稽核 AI · 視覺語言模型 · 安全關鍵自主系統" />
+    <meta property="og:url" content="https://sanniel0315.github.io/sanniel-lab/" />
+    <meta
+      property="og:image"
+      content="https://sanniel0315.github.io/sanniel-lab/files/og-image.png"
+    />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&family=IBM+Plex+Mono:wght@400&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>史</text></svg>"
+    />
+  </head>
+
+  <body>
+    <a class="skip" href="#main">跳至主要內容</a>
+
+    <nav id="nav">
+      <div class="nav-inner">
+        <a class="nav-name" href="#top">史哲政</a>
+        <ul>
+          <li><a href="#research">研究</a></li>
+          <li><a href="#publications">著作</a></li>
+          <li><a href="#experience">學經歷</a></li>
+          <li><a href="#credentials">證照</a></li>
+          <li><a href="#contact">聯絡</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <main id="main">
+      <!-- ────────────────────────────────────────────── HERO -->
+      <header id="top" class="hero">
+        <div class="wrap">
+          <p class="eyebrow">可稽核 AI · 視覺語言模型 · 安全關鍵自主系統</p>
+          <h1>史哲政<span class="latin">Zhe-Zheng Shi</span></h1>
+          <p class="affil">
+            碩士，國立臺北科技大學 自動化科技研究所<br />
+            指導教授：陳文輝 博士
+          </p>
+
+          <p class="lede">
+            我研究<strong>如何讓基礎模型參與安全關鍵控制，而且事後說得清楚它為什麼那樣做。</strong>
+          </p>
+
+          <div class="actions">
+            <a class="btn primary" href="files/shi-zhe-zheng-cv.pdf">
+              下載完整 CV<small>PDF</small>
+            </a>
+            <a class="btn" href="files/shi-zhe-zheng-research-summary.pdf">
+              下載研究摘要<small>PDF · 一頁</small>
+            </a>
+          </div>
+        </div>
+      </header>
+
+      <div class="stats">
+        <div class="wrap">
+          <div class="stat">
+            <b>0</b><span>閉環碰撞<br />五個種子皆為零</span>
+          </div>
+          <div class="stat">
+            <b>&lt;9%</b><span>八個統一架構<br />變體的完成率</span>
+          </div>
+          <div class="stat">
+            <b>35–41:1</b><span>語言對控制的<br />梯度壓力比</span>
+          </div>
+          <div class="stat">
+            <b>~6%</b><span>可稽核性的<br />速度代價</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ────────────────────────────────────────────── 研究 -->
+      <section id="research">
+        <div class="wrap">
+          <h2 data-n="01">研究</h2>
+
+          <p>
+            碩士階段我發現並刻畫了一個結構性失效機制：當視覺語言模型與連續控制器共用視覺編碼器時，
+            語義推理與幾何控制之間存在無法靠調參化解的衝突，會導致模型在開環評估中看起來正常，
+            閉環中卻在數十公尺內偏出車道。
+          </p>
+
+          <div class="finding">
+            <p class="finding-label">最反直覺的結果</p>
+            <p class="finding-text">
+              八個統一架構變體中，有一個的開環誤差（MAE&nbsp;0.0113）
+              <strong>比不崩潰的架構（0.0144）更小</strong>，閉環完成率卻不到&nbsp;9%。
+            </p>
+            <p class="finding-note">以離線指標預測閉環可行性，這件事本身不成立。</p>
+          </div>
+
+          <h3>六個核心概念</h3>
+          <dl class="concepts">
+            <dt>語義-幾何衝突</dt>
+            <dd>
+              共用視覺編碼器時，兩個目標對表徵提出互相牴觸的要求：語義推理需要低熵、抽象、對細節不敏感；
+              幾何控制需要高頻、精確、對微小位移敏感。衝突是<strong>結構性的</strong>，不是工程瑕疵。
+            </dd>
+
+            <dt>幾何崩潰</dt>
+            <dd>
+              衝突的失效表現：轉向輸出<strong>不可逆地</strong>趨近於零。
+              一旦編碼器表徵向語義端塌陷，控制頭再也拿不到足以區分細微橫向位移的特徵，
+              崩潰會自我強化，不會靠繼續訓練恢復。
+            </dd>
+
+            <dt>兩個成因</dt>
+            <dd>
+              <strong>梯度壓力失衡</strong> —— 自迴歸語言損失隨序列長度累積，
+              在共享編碼器上壓過控制損失，理論下界 24:1、冷啟動實測 35–41:1。
+              <strong>ViT 注意力偏差</strong> —— 自注意力天然集中於稠密高熵區域，
+              系統性餓死空間稀疏但控制關鍵的線索：車道邊界僅佔影像面積不到 2%。
+            </dd>
+          </dl>
+
+          <figure class="fig">
+            <img
+              src="files/attention-bias.jpg"
+              width="1400"
+              height="2499"
+              loading="lazy"
+              alt="六組駕駛場景的注意力對比，每列三欄：左為原始 RGB 影像，中為 ResNet-50（System 1，幾何）的類別活化圖，右為 ViT-B/16（System 2，語義）的注意力圖。ResNet-50 的熱區大範圍覆蓋路面與車道走向；ViT 的熱區則集中在建物、招牌、號誌等少數高語義密度的點，路面與車道邊界幾乎沒有被關注。"
+            />
+            <figcaption>
+              <b>這是「成因二」的直接證據。</b>
+              每一列左為原始畫面，中間是 <span class="mono">ResNet-50</span>（System 1，幾何），
+              右邊是 <span class="mono">ViT-B/16</span>（System 2，語義）。
+              <strong
+                >ResNet-50 的熱區鋪在路面與車道走向上；ViT 的熱區集中在建物、招牌、號誌</strong
+              >
+              —— 那些是語義上顯著、但對「該轉多少度」毫無幫助的區域。 車道邊界佔影像面積不到
+              2%，在自注意力的競爭中被系統性地餓死。 這不是訓練不足，是注意力機制的結構偏好。
+            </figcaption>
+          </figure>
+
+          <dl class="concepts">
+            <dt>開環閉環落差</dt>
+            <dd>
+              開環評估把模型放在專家軌跡上逐格評分，誤差不會累積；
+              閉環中模型自己的輸出決定下一格輸入，微小偏差複合放大。
+              兩者的排名不只是不一致，是<strong>反向的</strong>。 這個結論適用於任何
+              learning-enabled 的致動系統，不限自駕。
+            </dd>
+
+            <dt>雙過程架構</dt>
+            <dd>
+              解法不是重新平衡兩股力量，而是分開它們。 System 1（ResNet-50 + WaypointHead，約 6
+              ms）負責確定性幾何控制，
+              <strong>完全不接觸語言建模梯度</strong>； System 2（BLIP-2 + LoRA-adapted
+              Flan-T5-XL，1–2 Hz）產出可稽核紀錄。 訓練時完全分離，推論時僅透過非對稱因果融合橋耦合
+              —— 耦合是單向的，System 2 影響 System 1 的方式受嚴格限制。
+            </dd>
+
+            <dt>可稽核性 ≠ 可解釋性</dt>
+            <dd>
+              可解釋的對象是開發者，產出是事後說法；<strong>可稽核的對象是第三方稽核方、監理機關、法庭</strong>，
+              產出必須是可獨立驗證的證據。前者失敗只是除錯比較慢，後者失敗是無法追責。 大部分 XAI
+              研究停在左欄。安全關鍵部署需要的是右欄。
+            </dd>
+          </dl>
+
+          <h3>架構</h3>
+          <figure class="fig">
+            <img
+              src="files/architecture.png"
+              width="1399"
+              height="768"
+              loading="lazy"
+              alt="雙過程架構圖。左側綠色為 System 1 幾何路徑：ResNet-50 骨幹輸出 2048 維特徵，經 WaypointHead 多層感知器產生五個路徑點，再由 Pure Pursuit 與 PID 合成轉向與油門。右側紫色為 System 2 語義路徑：ViT-G/14 凍結視覺編碼器、Q-Former 32 個查詢、Flan-T5-XL 加 LoRA 微調 4.3 M 參數，輸出四層 GVQA 推理鏈。兩條路徑之間以紅色虛線標示無共享參數的梯度防火牆。中央橘色為非對稱因果融合橋，依四條規則決定融合權重。"
+            />
+            <figcaption>
+              兩條路徑之間那條<strong>紅色虛線</strong>是整個設計的重點：
+              <span class="mono">no shared params · gradient firewall by construction</span>。
+              不是訓練時小心避免互相干擾，是<strong>結構上不存在共享參數</strong>，
+              因此干擾在設計層面就不可能發生。 中央的融合橋只有四條規則，且縱向控制是單向否決 ——
+              System 2 只能踩煞車，不能給油。
+            </figcaption>
+          </figure>
+
+          <h3>實際跑出來的樣子</h3>
+          <figure class="evidence">
+            <a href="files/closed-loop-evidence-full.jpg" title="點擊查看完整九個案例">
+              <img
+                src="files/closed-loop-case.jpg"
+                width="1016"
+                height="1015"
+                loading="lazy"
+                alt="閉環運行的單一時刻：畫面疊上 GradCAM 熱區圖與 HUD。左下顯示融合輸出 F=+0.220、System 2 轉向 +0.106、System 1 轉向 +0.334；下方為 System 2 的推理輸出「follow road curvature」與「Plan: moderate right turn (steer=+0.220)」，一致性檢查標記為 Yes。"
+              />
+            </a>
+            <figcaption>
+              Town10HD-Bench 1,000 m 閉環運行（seed 42）中的單一時刻。 熱區圖是 System
+              1（ResNet-50）的 GradCAM —— 注意力落在道路曲率與車道邊界，而非建物與招牌。 HUD
+              同時顯示三個轉向值（融合 <span class="mono">F=+0.220</span>、 System 2
+              <span class="mono">+0.106</span>、System 1 <span class="mono">+0.334</span>） 與
+              System 2 當下的推理輸出。
+              <strong>控制指令與稽核紀錄在同一幀內並列，這正是可稽核性要求的形式</strong> ——
+              紀錄不是事後補寫的說明，是與致動同時產生的。
+              <a href="files/closed-loop-evidence-full.jpg">查看完整九個案例</a>
+            </figcaption>
+          </figure>
+
+          <h3>閉環結果</h3>
+          <div class="table-wrap">
+            <table class="data">
+              <thead>
+                <tr>
+                  <th>指標</th>
+                  <th>本架構</th>
+                  <th>八個統一架構變體</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>路線完成率</td>
+                  <td><strong>100.009 ± 0.002%</strong></td>
+                  <td>≤ 9%</td>
+                </tr>
+                <tr>
+                  <td>碰撞數</td>
+                  <td><strong>0</strong>（五個種子皆為零）</td>
+                  <td>最多 299 次</td>
+                </tr>
+                <tr>
+                  <td>語義-控制一致性</td>
+                  <td>97.35 ± 1.14%</td>
+                  <td>—</td>
+                </tr>
+                <tr>
+                  <td>因果影響</td>
+                  <td>75.60 ± 2.58%</td>
+                  <td>—</td>
+                </tr>
+                <tr>
+                  <td>速度代價</td>
+                  <td>約 6%</td>
+                  <td>—</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="caption">
+            CARLA 0.10.0，五條路線共 5,000 m，n = 5 多種子評估。 另有 CARLA 0.9.15 跨版本配對診斷共
+            150 組配對，界定外部效度。
+          </p>
+
+          <p class="explain">
+            <b>為什麼完成率會超過 100%</b>
+            此處的路線完成率是「實際行駛距離 ÷ 至規劃終點的距離」的相對量測，
+            不是進度條式的截斷比例。抵達判定為進入終點 5 m 半徑內，
+            車輛因慣性與感測延遲會略微越過終點，該段殘餘行程仍計入行駛距離 —— 超出量為路線長度的
+            0.001–0.011%，在 1,000 m 路線上相當於 10–110 cm。
+            <strong>刻意不截斷至 100%</strong
+            >，因為截斷會破壞完成率與所記錄行駛距離之間的線性可重現對應。 正確讀法是「達成 ≥100%
+            完成、終點精度約 ±1 m」， 而安全宣稱由碰撞欄承擔 —— 該欄在五個種子上皆為 0，標準差為零。
+          </p>
+
+          <h3>接下來要解的問題</h3>
+          <p>
+            碩士階段產出的稽核紀錄仍是<strong>相關性證據</strong>。
+            要讓一段紀錄能承擔責任歸屬，必須同時滿足三個條件，目前無系統同時達成：
+          </p>
+          <ol class="conditions">
+            <li><strong>完整性</strong> —— 證明沒有未被記錄的致動旁路</li>
+            <li>
+              <strong>不可否認性</strong> —— 紀錄不可竄改，且可證明就是當下實際驅動控制的那一份
+            </li>
+            <li><strong>反事實可檢驗</strong> —— 能重放並驗證因果，而非只觀察到相關</li>
+          </ol>
+          <p>
+            目標是把「模型推理對致動的影響」從統計上的觀察，推進為<strong>可形式化驗證的性質</strong>。
+            其中第二項需要密碼學與可信執行環境，而不是機器學習 ——
+            那正是我二十年資安治理背景能直接接上的地方。
+          </p>
+        </div>
+      </section>
+
+      <!-- ────────────────────────────────────────────── 著作 -->
+      <section id="publications">
+        <div class="wrap">
+          <h2 data-n="02">著作</h2>
+
+          <article class="pub">
+            <p class="pub-kind">學位論文</p>
+            <h3>視覺語言模型在可稽核端到端自動駕駛系統之應用與評估</h3>
+            <p class="pub-en">
+              Application and Evaluation of Vision-Language Models in Auditable End-to-End
+              Autonomous Driving Systems
+            </p>
+            <p class="pub-meta">
+              碩士論文 · 國立臺北科技大學 自動化科技研究所 · 2026 年 6 月 · 指導教授：陳文輝 博士
+            </p>
+            <p class="pub-keywords">
+              視覺語言模型 · 可稽核性人工智慧 · 端到端自動駕駛 · 閉環評估 · 雙過程架構 · 解耦控制 ·
+              圖視覺問答
+            </p>
+          </article>
+
+          <article class="pub on">
+            <p class="pub-kind">會議論文<span class="status on">已投稿，審查中</span></p>
+            <h3 class="en">
+              A Bounded-Authority Dual-Process Framework for Closed-Loop Vision-Language Autonomous
+              Driving
+            </h3>
+            <p class="pub-meta">
+              Zhe-Zheng Shi, Wen-Hui Chen（通訊作者）, Yu-Chen Lin<br />
+              <em>CACS 2026 — International Automatic Control Conference</em>， 特別場次
+              SS-12：AI-Driven Perception, Prediction, and Decision-Making for Autonomous Systems<br />
+              2026 年 10 月 21–24 日 · 逢甲大學 · 接受之 regular paper 收錄 IEEE Xplore + EI
+            </p>
+            <p>
+              提出<strong>有界權限</strong>設計：System 1 在所有安全關鍵情境
+              （高曲率轉彎、方向衝突、System 2 失效）保有完整橫向控制權； System 2
+              只能透過有界否決降低速度目標，永遠不能提高。
+            </p>
+            <blockquote>
+              Within this scope, strict decoupling, not capacity, is what closes the loop.
+            </blockquote>
+          </article>
+
+          <article class="pub">
+            <p class="pub-kind">期刊論文<span class="status off">投稿準備中</span></p>
+            <h3 class="en">Decoupled Vision-Language Control for Autonomous Driving</h3>
+            <p class="pub-meta">Zhe-Zheng Shi, Wen-Hui Chen · 投稿目標：<em>IEEE Access</em></p>
+            <p>
+              量化兩個崩潰根因，並以八變體消融與跨版本配對診斷證偽
+              「開環誤差可預測閉環可行性」這個普遍做法。
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <!-- ────────────────────────────────────────────── 學經歷 -->
+      <section id="experience">
+        <div class="wrap">
+          <h2 data-n="03">學經歷</h2>
+
+          <h3>學歷</h3>
+          <ul class="cv">
+            <li>
+              <span class="when">2024/09 – 2026/06</span>
+              <span class="what">國立臺北科技大學</span> 自動化科技研究所　碩士
+              <span class="role">指導教授：陳文輝 博士</span>
+            </li>
+            <li>
+              <span class="when">2021/08 – 2023/06</span>
+              <span class="what">國立臺北商業大學</span> 資訊管理系　學士
+            </li>
+          </ul>
+
+          <h3>經歷</h3>
+          <ul class="cv">
+            <li>
+              <span class="when">2023/04 – 迄今</span>
+              <span class="what">華電聯網股份有限公司</span>
+              <span class="role">技術經理</span>
+            </li>
+            <li>
+              <span class="when">2020/07 – 2023/04</span>
+              <span class="what">遠傳電信股份有限公司</span>
+              <span class="role">產品技術副理</span>
+            </li>
+            <li>
+              <span class="when">2018/08 – 2020/04</span>
+              <span class="what">達運光電股份有限公司</span> IoT 事業中心
+              <span class="role">專案經理</span>
+            </li>
+            <li>
+              <span class="when">2011 – 2018/07</span>
+              <span class="what">安萊科技有限公司</span>
+              <span class="role">資深產品技術部經理</span>
+            </li>
+            <li>
+              <span class="when">2005 – 2009</span>
+              <span class="what">通訊弱電工程</span>（門禁 / 監視 / 防盜）
+              <span class="role">工程</span>
+            </li>
+          </ul>
+
+          <p class="trajectory">
+            弱電施工　→　系統整合　→　產品規劃　→　電信級方案　→　資安治理　→　<b
+              >基礎模型失效機制研究</b
+            >
+          </p>
+
+          <h3>為什麼是可稽核性</h3>
+          <p>
+            我在產業做了二十年系統整合，交付過必須接受稽核的系統：
+            科技執法、司法矯正、海事執法、國防、公共能源。 我持有
+            <strong>CISA</strong>（國際資訊系統稽核師）、<strong
+              >ISO 27001:2022 Lead Auditor</strong
+            >
+            與 <strong>CISM</strong>。
+          </p>
+          <p class="claim">
+            大部分做可解釋 AI 的人沒被稽核過。我被稽核過，也稽核過別人 —— 這是有證照的。
+          </p>
+          <p>
+            所以我很清楚一件事：可解釋不等於可稽核。 attention map
+            能讓開發者除錯，卻無法在監理機關或法庭前承擔舉證責任。
+          </p>
+
+          <h3>代表性專案</h3>
+          <div class="projects">
+            <div>
+              <h4>智慧交通與科技執法</h4>
+              <ul>
+                <li>直轄市級警政單位　路口安全科技執法平台（16 處路口）— 系統規劃執行</li>
+                <li>國立大學校區外環道路　區間測速及車牌辨識系統</li>
+                <li>縣級警政單位　路口車牌辨識應用平台整合</li>
+              </ul>
+            </div>
+            <div>
+              <h4>國防與公部門</h4>
+              <ul>
+                <li>國防研究機構　智慧偵防系統整合（雲端物聯網創新獎）</li>
+                <li>海事執法機關　行動偵防標案 — 雲端智慧影像分析平台</li>
+                <li>海事執法機關　智慧港監標案 — 影像分析系統設計規劃整合</li>
+                <li>司法矯正機關　獄政資訊系統 — 需求分析規格書</li>
+                <li>市級政府　AI 願景應用平台</li>
+              </ul>
+            </div>
+            <div>
+              <h4>能源與公共政策</h4>
+              <ul>
+                <li>「班班有冷氣」能源管理平台 — 系統規劃執行（9 縣市、1,290 所學校）</li>
+                <li>遠傳 EMS 門市能源管理方案、電動車充電樁佈署策略</li>
+                <li>高雄、嘉義　智慧長照 2.0 政府應用平台整合設計</li>
+              </ul>
+            </div>
+            <div>
+              <h4>工業與企業</h4>
+              <ul>
+                <li>上銀科技　智慧物流 SDN 應用整合</li>
+                <li>中鋼　原物料輸送帶偵溫與數位影像系統整合（1,500 路網路攝影機）</li>
+                <li>中龍鋼鐵　全廠區監視系統結合影像分析</li>
+                <li>長榮倉儲、保稅大樓 2/3 期　數位化系統整合設計</li>
+                <li>華儲　中央監控戰情中心設計規劃</li>
+                <li>技嘉　OpenStack 新店機房網路規劃</li>
+                <li>台灣高鐵　700T 列車數位監視設備系統規劃</li>
+                <li>SOGO 百貨　發票中台 POS 系統混合雲規劃執行</li>
+                <li>越南 Gtel LVB 銀行　數位監控系統整合</li>
+              </ul>
+            </div>
+          </div>
+
+          <h3>講師與獎項</h3>
+          <ul class="awards">
+            <li>
+              <strong>DevOpsDays Taipei 2022</strong> 講師 —《DevOps 潮流下的 API First 開發策略》
+            </li>
+            <li>年度 AIOT / Secutech 展會講師</li>
+            <li>遠傳電信 1H'21 EBU Spot Award — EMS Home Grown Solution 團隊</li>
+            <li>雲端物聯網創新獎 — 國防研究機構合作專案</li>
+            <li>國立臺北商業大學 薪傳獎</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- ────────────────────────────────────────────── 證照 -->
+      <section id="credentials">
+        <div class="wrap">
+          <h2 data-n="04">證照</h2>
+
+          <div class="cred-group">
+            <h3>稽核與治理</h3>
+            <ul>
+              <li><strong>CISA</strong> — Certified Information Systems Auditor</li>
+              <li><strong>ISO 27001:2022</strong> Lead Auditor</li>
+              <li><strong>CISM</strong> — Certified Information Security Manager</li>
+              <li><strong>PMP</strong> — Project Management Professional</li>
+              <li>Google Cybersecurity</li>
+              <li>iPAS 資訊安全工程師（初級）</li>
+            </ul>
+          </div>
+
+          <div class="cred-group">
+            <h3>雲端與 AI</h3>
+            <ul>
+              <li>Microsoft Azure Data Scientist Associate</li>
+              <li>Microsoft Azure AI Associate</li>
+              <li>Microsoft Azure DevOps Engineer Expert</li>
+              <li>Microsoft Azure Developer Associate</li>
+              <li>Microsoft Azure Fundamentals</li>
+              <li>iPAS AI 應用規劃師（初級）</li>
+              <li>iPAS 物聯網工程師（初級）</li>
+            </ul>
+          </div>
+
+          <div class="cred-group">
+            <h3>系統與網路</h3>
+            <ul>
+              <li>CKAD — Certified Kubernetes Application Developer</li>
+              <li>RHCE · RHCSA</li>
+              <li>CCNP Enterprise · CCNP Routing and Switching · CCNP SD-WAN Solutions</li>
+              <li>
+                Information Technology Specialist：Artificial Intelligence／Python／Computational
+                Thinking／Cybersecurity／Data Analytics
+              </li>
+              <li>
+                PMI：Generative AI Overview／Prompt Engineering for Project Managers
+              </li>
+              <li>Generative AI Foundations – Taiwan</li>
+            </ul>
+          </div>
+
+          <details class="cred-more">
+            <summary>其他證照與培訓</summary>
+            <ul>
+              <li>
+                CCNA Routing and Switching（2017）· NCTE — NETGEAR Certified Technical
+                Engineer（2018）
+              </li>
+              <li>NVIDIA Jetson Nano 認證 · 工研院 ITRI VA 證書</li>
+              <li>弱點掃描及原始碼檢測實作 · 軟體架構設計與應用模式培訓</li>
+              <li>國立臺灣科技大學 AI 課程結業 · 國立臺北商業大學 商業智慧化模組證明</li>
+            </ul>
+          </details>
+        </div>
+      </section>
+
+      <!-- ────────────────────────────────────────────── 聯絡 -->
+      <section id="contact">
+        <div class="wrap">
+          <h2 data-n="05">聯絡</h2>
+          <ul class="contact">
+            <li>
+              <span>Email</span><a href="mailto:t113618501@ntut.org.tw">t113618501@ntut.org.tw</a>
+            </li>
+            <li>
+              <span>ORCID</span>
+              <a href="https://orcid.org/0009-0000-9948-1200" rel="me">0009-0000-9948-1200</a>
+            </li>
+            <li>
+              <span>LinkedIn</span>
+              <a href="https://www.linkedin.com/in/%E5%93%B2%E6%94%BF%E5%8F%B2-872263ab" rel="me"
+                >哲政 史</a
+              >
+            </li>
+            <li>
+              <span>GitHub</span><a href="https://github.com/sanniel0315" rel="me">@sanniel0315</a>
+            </li>
+          </ul>
+
+          <div class="actions">
+            <a class="btn primary" href="files/shi-zhe-zheng-cv.pdf"
+              >下載完整 CV<small>PDF</small></a
+            >
+            <a class="btn" href="mailto:t113618501@ntut.org.tw"
+              >寄信給我<small>t113618501@ntut.org.tw</small></a
+            >
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="wrap"><p>史哲政 Zhe-Zheng Shi · 最後更新 2026 年 8 月</p></div>
+    </footer>
+
+    <script>
+      // 捲動時標記目前所在章節，導覽列同步highlight。
+      // 用 IntersectionObserver 而非 scroll 事件 —— 後者每幀觸發，在長頁面上會掉幀。
+      const links = [...document.querySelectorAll("#nav a[href^='#']")]
+      const map = new Map(links.map((a) => [a.getAttribute("href").slice(1), a]))
+      const io = new IntersectionObserver(
+        (entries) => {
+          for (const e of entries) {
+            const a = map.get(e.target.id)
+            if (a) a.classList.toggle("current", e.isIntersecting)
+          }
+        },
+        { rootMargin: "-45% 0px -50% 0px" },
+      )
+      document.querySelectorAll("main section, main header").forEach((s) => io.observe(s))
+    </script>
+  </body>
+</html>

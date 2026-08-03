@@ -1,0 +1,4 @@
+# 產生物與暫存
+.DS_Store
+Thumbs.db
+*.log

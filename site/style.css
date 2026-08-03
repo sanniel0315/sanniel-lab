@@ -1,0 +1,1032 @@
+/* ═══════════════════════════════════════════════════════════════════════════
+   史哲政 — 學術個人頁　v2
+
+   v1 太素：全頁只有文字與細線，沒有視覺錨點，掃視時抓不到重點。
+   v2 改為「有結構的技術感」：深藍 × 青色，粗體標題，關鍵數字獨立成塊。
+
+   五個決定：
+     1. 首屏滿版深色 —— 一眼知道這不是部落格
+     2. 關鍵數字抽成獨立區塊 —— 委員記不住段落，記得住數字
+     3. 標題用粗黑體。明體讀起來是「文學」，這份研究是工程
+     4. CTA 是全站唯一被實心填滿的元素，因此自動成為視覺焦點
+     5. 連結一律加底線 —— 只靠顏色區分，色弱使用者看不出來
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+:root {
+  --navy: #0b2545;
+  --navy-2: #13315c;
+  --cyan: #12a5b4;
+  --cyan-bright: #22d3ee;
+
+  --bg: #ffffff;
+  --bg-soft: #f2f6f9;
+  --surface: #eaf1f6;      /* 比 bg-soft 再深一階，用來取代中途的深色塊 */
+  --surface-line: #c9dae5;
+  /* 純黑配純白長文會刺眼，用深墨色 */
+  --text: #1f2328;
+  --muted: #55677a;
+  --faint: #7d8ea0;
+  --rule: #dde5ec;
+
+  --sans:
+    "Noto Sans TC", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, monospace;
+
+  --measure: 44rem;
+  --gap: clamp(1.25rem, 5vw, 2.5rem);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #0d1520;
+    --bg-soft: #131e2c;
+    --surface: #182535;
+    --surface-line: #2c3f52;
+    --text: #e8eef4;
+    --muted: #9dafc0;
+    --faint: #738699;
+    --rule: #22303f;
+    --navy: #08192f;
+    --navy-2: #0f2745;
+    --cyan: #2fd4e0;
+  }
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 4.5rem;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--sans);
+  font-size: 1rem;
+  line-height: 1.85;
+  letter-spacing: 0.015em;
+  -webkit-font-smoothing: antialiased;
+}
+
+.skip {
+  position: absolute;
+  left: -9999px;
+}
+.skip:focus {
+  left: 1rem;
+  top: 1rem;
+  z-index: 100;
+  padding: 0.6rem 1rem;
+  background: var(--cyan);
+  color: #fff;
+  border-radius: 3px;
+}
+
+/* 鍵盤焦點必須看得見 */
+a:focus-visible,
+summary:focus-visible,
+.btn:focus-visible {
+  outline: 3px solid var(--cyan-bright);
+  outline-offset: 2px;
+}
+
+.wrap {
+  max-width: var(--measure);
+  margin: 0 auto;
+  padding: 0 var(--gap);
+}
+
+/* ── 導覽 ─────────────────────────────────────────────────────────────────── */
+
+#nav {
+  position: sticky;
+  top: 0;
+  z-index: 30;
+  background: var(--navy);
+  border-bottom: 2px solid var(--cyan);
+}
+
+.nav-inner {
+  max-width: var(--measure);
+  margin: 0 auto;
+  padding: 0.55rem var(--gap);
+  display: flex;
+  align-items: center;
+  gap: 1.4rem;
+}
+
+.nav-name {
+  font-weight: 700;
+  font-size: 1rem;
+  letter-spacing: 0.1em;
+  color: #fff;
+  text-decoration: none;
+  white-space: nowrap;
+  padding: 0.5rem 0; /* 點擊區 */
+}
+
+#nav ul {
+  display: flex;
+  gap: 1rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+#nav ul::-webkit-scrollbar {
+  display: none;
+}
+
+#nav a {
+  display: inline-block;
+  color: #b9cee0;
+  text-decoration: none;
+  font-size: 0.87rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  white-space: nowrap;
+  /* 點擊區至少 44px 高 */
+  padding: 0.75rem 0;
+  border-bottom: 2px solid transparent;
+  transition: color 0.15s ease;
+}
+#nav a:hover {
+  color: #fff;
+}
+#nav a.current {
+  color: var(--cyan-bright);
+  border-bottom-color: var(--cyan-bright);
+}
+
+/* ── Hero ─────────────────────────────────────────────────────────────────── */
+
+.hero {
+  background:
+    radial-gradient(120% 100% at 85% 0%, rgba(34, 211, 238, 0.16) 0%, transparent 60%),
+    linear-gradient(160deg, var(--navy) 0%, var(--navy-2) 100%);
+  color: #fff;
+  padding: clamp(2.8rem, 8vw, 4.5rem) 0 clamp(2.2rem, 6vw, 3rem);
+}
+
+.eyebrow {
+  display: inline-block;
+  margin: 0 0 1.3rem;
+  padding: 0.3rem 0.85rem;
+  border: 1px solid rgba(34, 211, 238, 0.55);
+  border-radius: 999px;
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  color: var(--cyan-bright);
+}
+
+.hero h1 {
+  margin: 0 0 0.9rem;
+  font-size: clamp(2.3rem, 8vw, 3.2rem);
+  font-weight: 900;
+  line-height: 1.2;
+  letter-spacing: 0.03em;
+  color: #fff;
+}
+.hero h1 .latin {
+  display: block;
+  margin-top: 0.4rem;
+  font-size: 0.42em;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  color: #9dc0dc;
+}
+
+.affil {
+  margin: 0 0 1.7rem;
+  color: #b9cee0;
+  font-size: 0.93rem;
+  line-height: 1.8;
+  text-align: left;
+}
+
+.lede {
+  margin: 0 0 1.9rem;
+  font-size: clamp(1.05rem, 2.6vw, 1.22rem);
+  line-height: 1.75;
+  color: #e8f1f8;
+  text-align: left;
+}
+.lede strong {
+  color: #fff;
+  box-shadow: inset 0 -0.5em 0 rgba(34, 211, 238, 0.24);
+}
+
+/* ── 數字帶 ───────────────────────────────────────────────────────────────── */
+
+.stats {
+  background: var(--navy-2);
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 1.5rem 0;
+}
+.stats .wrap {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+}
+.stat {
+  text-align: center;
+}
+.stat b {
+  display: block;
+  font-size: clamp(1.3rem, 4vw, 1.75rem);
+  font-weight: 900;
+  color: var(--cyan-bright);
+  font-variant-numeric: tabular-nums;
+  line-height: 1.25;
+}
+.stat span {
+  display: block;
+  margin-top: 0.2rem;
+  font-size: 0.76rem;
+  letter-spacing: 0.05em;
+  color: #b9cee0;
+  line-height: 1.5;
+}
+
+/* ── CTA ──────────────────────────────────────────────────────────────────── */
+/* 全站唯一被實心填滿的元素。它不需要更大或更花，只需要是唯一。 */
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-height: 44px; /* 觸控目標下限 */
+  padding: 0.7rem 1.3rem;
+  border-radius: 4px;
+  text-decoration: none;
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  border: 2px solid var(--cyan);
+  color: var(--cyan-bright);
+  background: transparent;
+  transition:
+    background-color 0.15s ease,
+    color 0.15s ease;
+}
+.btn small {
+  font-size: 0.72rem;
+  font-weight: 400;
+  letter-spacing: 0.08em;
+  opacity: 0.8;
+}
+.btn.primary {
+  background: var(--cyan);
+  border-color: var(--cyan);
+  color: #fff;
+}
+.btn:hover {
+  background: var(--cyan-bright);
+  border-color: var(--cyan-bright);
+  color: #06202c;
+}
+
+/* 淺底區塊裡的 CTA */
+section .btn {
+  border-color: var(--cyan);
+  color: var(--cyan);
+}
+section .btn.primary {
+  background: var(--cyan);
+  color: #fff;
+}
+section .btn:hover {
+  background: var(--navy);
+  border-color: var(--navy);
+  color: #fff;
+}
+
+/* ── 區塊 ─────────────────────────────────────────────────────────────────── */
+
+section {
+  padding: 3.4rem 0;
+}
+section + section {
+  border-top: 1px solid var(--rule);
+}
+
+h2 {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  margin: 0 0 1.7rem;
+  font-size: 1.5rem;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+}
+h2::before {
+  content: attr(data-n);
+  flex: 0 0 auto;
+  min-width: 2.1rem;
+  padding: 0.2rem 0;
+  background: var(--cyan);
+  color: #fff;
+  border-radius: 3px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-align: center;
+}
+
+h3 {
+  margin: 2.5rem 0 0.8rem;
+  padding-left: 0.7rem;
+  border-left: 3px solid var(--cyan);
+  font-size: 1.07rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+}
+
+h4 {
+  margin: 1.5rem 0 0.4rem;
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: var(--cyan);
+}
+
+p {
+  margin: 1rem 0;
+  text-align: justify;
+  text-justify: inter-ideograph;
+}
+
+strong {
+  font-weight: 700;
+}
+
+/* 連結：底線是必要的，不能只靠顏色 */
+a {
+  color: var(--navy);
+  font-weight: 500;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-color: var(--cyan);
+  text-decoration-thickness: 2px;
+}
+a:hover {
+  color: var(--cyan);
+}
+@media (prefers-color-scheme: dark) {
+  a {
+    color: var(--cyan);
+  }
+}
+.btn,
+#nav a,
+.nav-name,
+.evidence a:not(figcaption a) {
+  text-decoration: none;
+}
+
+/* ── 核心發現 ─────────────────────────────────────────────────────────────── */
+
+.finding {
+  margin: 2rem 0;
+  padding: 1.4rem 1.6rem;
+  background: var(--surface);
+  border-radius: 5px;
+  border-left: 5px solid var(--cyan);
+}
+.finding-label {
+  margin: 0 0 0.6rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  color: var(--cyan);
+  text-align: left;
+}
+.finding-text {
+  margin: 0;
+  font-size: 1.04rem;
+  text-align: left;
+}
+
+.finding-note {
+  margin: 0.9rem 0 0;
+  padding-top: 0.9rem;
+  border-top: 1px solid var(--surface-line);
+  font-size: 1.02rem;
+  font-weight: 700;
+  text-align: left;
+}
+
+/* ── 概念 ─────────────────────────────────────────────────────────────────── */
+
+.concepts {
+  margin: 1.2rem 0 0;
+}
+.concepts dt {
+  display: inline-block;
+  margin: 1.7rem 0 0.5rem;
+  padding: 0.15rem 0.7rem;
+  background: var(--bg-soft);
+  border-left: 3px solid var(--cyan);
+  font-weight: 700;
+  font-size: 0.98rem;
+  letter-spacing: 0.03em;
+}
+.concepts dd {
+  margin: 0;
+  text-align: justify;
+  text-justify: inter-ideograph;
+}
+
+/* ── 表格 ─────────────────────────────────────────────────────────────────── */
+
+.table-wrap {
+  margin: 1.3rem 0 0.6rem;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.93rem;
+  line-height: 1.7;
+}
+
+th {
+  text-align: left;
+  padding: 0.5rem 0.9rem 0.5rem 0.7rem;
+  border-bottom: 2px solid var(--cyan);
+  color: var(--muted);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  white-space: nowrap;
+}
+
+td {
+  padding: 0.6rem 0.9rem 0.6rem 0.7rem;
+  border-bottom: 1px solid var(--rule);
+  vertical-align: top;
+}
+tbody tr:nth-child(even) {
+  background: var(--bg-soft);
+}
+tr:last-child td {
+  border-bottom: none;
+}
+
+.data td:not(:first-child) {
+  font-variant-numeric: tabular-nums;
+}
+.data td strong {
+  color: var(--cyan);
+}
+@media (prefers-color-scheme: dark) {
+  .data td strong {
+    color: var(--cyan);
+  }
+}
+
+.caption {
+  margin: 0.5rem 0 0;
+  font-size: 0.84rem;
+  color: var(--muted);
+  text-align: left;
+}
+
+/* ── 註解框：解釋容易被誤讀的數字 ─────────────────────────────────────────── */
+
+.explain {
+  margin: 1rem 0 0;
+  padding: 0.9rem 1.1rem;
+  background: var(--bg-soft);
+  border-left: 4px solid var(--faint);
+  border-radius: 0 4px 4px 0;
+  font-size: 0.88rem;
+  line-height: 1.8;
+  text-align: left;
+}
+.explain b {
+  display: block;
+  margin-bottom: 0.3rem;
+  font-size: 0.76rem;
+  letter-spacing: 0.12em;
+  color: var(--muted);
+}
+
+/* ── 履歷時間軸 ───────────────────────────────────────────────────────────── */
+
+.cv {
+  margin: 1rem 0 0;
+  padding: 0 0 0 1.2rem;
+  list-style: none;
+  border-left: 2px solid var(--rule);
+}
+.cv li {
+  position: relative;
+  padding: 0 0 1.2rem 0.6rem;
+}
+.cv li::before {
+  content: "";
+  position: absolute;
+  left: -1.85rem;
+  top: 0.62rem;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--cyan);
+  box-shadow: 0 0 0 3px var(--bg);
+}
+.cv .when {
+  display: block;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: var(--cyan);
+  font-variant-numeric: tabular-nums;
+}
+.cv .what {
+  font-weight: 700;
+}
+.cv .role {
+  color: var(--muted);
+  font-size: 0.92rem;
+}
+
+.trajectory {
+  margin: 1.5rem 0 0;
+  padding: 1rem 1.2rem;
+  background: var(--surface);
+  border-radius: 4px;
+  color: var(--muted);
+  font-size: 0.87rem;
+  line-height: 2;
+  text-align: center;
+}
+.trajectory b {
+  color: var(--text);
+}
+
+.claim {
+  margin: 1.4rem 0;
+  padding: 1rem 1.2rem;
+  border-left: 5px solid var(--cyan);
+  background: var(--bg-soft);
+  font-size: 1.02rem;
+  font-weight: 700;
+  text-align: left;
+}
+
+/* ── 著作卡片 ─────────────────────────────────────────────────────────────── */
+
+.pub {
+  margin: 1.4rem 0;
+  padding: 1.3rem 1.4rem;
+  border: 1px solid var(--rule);
+  border-top: 4px solid var(--rule);
+  border-radius: 4px;
+}
+.pub.on {
+  border-top-color: var(--cyan);
+}
+
+.pub-kind {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6rem;
+  margin: 0 0 0.7rem;
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  color: var(--muted);
+  text-align: left;
+}
+
+.status {
+  padding: 0.2rem 0.6rem;
+  border-radius: 3px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+}
+.status.on {
+  background: var(--cyan);
+  color: #fff;
+}
+.status.off {
+  background: var(--bg-soft);
+  color: var(--muted);
+  border: 1px solid var(--rule);
+}
+
+.pub h3 {
+  margin: 0 0 0.5rem;
+  padding: 0;
+  border: none;
+  font-size: 1.06rem;
+  line-height: 1.55;
+}
+
+.pub-en {
+  margin: 0 0 0.6rem;
+  font-style: italic;
+  color: var(--muted);
+  font-size: 0.93rem;
+  text-align: left;
+}
+
+.pub-meta {
+  margin: 0 0 0.8rem;
+  font-size: 0.87rem;
+  line-height: 1.8;
+  color: var(--muted);
+  text-align: left;
+}
+
+.pub-keywords {
+  margin: 0.7rem 0 0;
+  padding-top: 0.7rem;
+  border-top: 1px solid var(--rule);
+  font-size: 0.82rem;
+  color: var(--faint);
+  text-align: left;
+}
+
+blockquote {
+  margin: 1.1rem 0 0;
+  padding: 0.7rem 1rem;
+  background: var(--bg-soft);
+  border-left: 3px solid var(--cyan);
+  border-radius: 0 3px 3px 0;
+  font-style: italic;
+  font-size: 0.94rem;
+}
+
+/* ── 清單 ─────────────────────────────────────────────────────────────────── */
+
+.conditions {
+  margin: 1rem 0;
+  padding-left: 0;
+  list-style: none;
+  counter-reset: c;
+}
+.conditions li {
+  position: relative;
+  margin: 0.6rem 0;
+  padding-left: 2.3rem;
+  counter-increment: c;
+}
+.conditions li::before {
+  content: counter(c);
+  position: absolute;
+  left: 0;
+  top: 0.35rem;
+  width: 1.6rem;
+  height: 1.6rem;
+  line-height: 1.6rem;
+  text-align: center;
+  background: var(--cyan);
+  color: #fff;
+  border-radius: 50%;
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+.projects ul,
+.awards {
+  margin: 0.3rem 0 0;
+  padding-left: 1.1rem;
+  font-size: 0.92rem;
+  line-height: 1.85;
+}
+.projects li::marker,
+.awards li::marker {
+  color: var(--cyan);
+}
+
+/* ── 證照 ─────────────────────────────────────────────────────────────────── */
+
+.cred-group {
+  margin: 1.2rem 0;
+  padding: 1rem 1.2rem;
+  background: var(--bg-soft);
+  border-radius: 4px;
+}
+.cred-group h3 {
+  margin: 0 0 0.5rem;
+  padding: 0;
+  border: none;
+  font-size: 0.8rem;
+  letter-spacing: 0.14em;
+  color: var(--cyan);
+}
+.cred-group ul {
+  margin: 0;
+  padding-left: 1.1rem;
+  font-size: 0.93rem;
+  line-height: 1.9;
+}
+.cred-group li::marker {
+  color: var(--cyan);
+}
+
+.cred-more {
+  margin: 1.4rem 0 0;
+  padding: 0.9rem 1.2rem;
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+}
+.cred-more summary {
+  cursor: pointer;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--muted);
+}
+.cred-more summary:hover {
+  color: var(--cyan);
+}
+.cred-more ul {
+  margin: 0;
+  padding-left: 1.1rem;
+  font-size: 0.89rem;
+  line-height: 1.8;
+  color: var(--muted);
+}
+
+/* ── 聯絡 ─────────────────────────────────────────────────────────────────── */
+
+.contact {
+  margin: 0 0 2rem;
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid var(--rule);
+}
+.contact li {
+  display: flex;
+  gap: 1rem;
+  padding: 0.7rem 0;
+  border-bottom: 1px solid var(--rule);
+  font-size: 0.94rem;
+}
+.contact span {
+  flex: 0 0 5.5rem;
+  color: var(--cyan);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+}
+.contact a {
+  word-break: break-all;
+}
+
+/* ── 論文圖表 ─────────────────────────────────────────────────────────────── */
+/* 這些是實際論文裡的圖，不是示意圖。
+   給它們白底與細框 —— 圖本身是白底的，直接放在頁面上會與背景融成一片，
+   讀者分不出哪裡是圖、哪裡是版面。 */
+
+.fig {
+  margin: 1.6rem 0 0.6rem;
+}
+.fig img {
+  display: block;
+  width: 100%;
+  height: auto;
+  background: #fff;
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+}
+.fig figcaption {
+  margin-top: 0.8rem;
+  padding-left: 0.9rem;
+  border-left: 3px solid var(--cyan);
+  font-size: 0.87rem;
+  line-height: 1.85;
+  color: var(--muted);
+  text-align: left;
+}
+.fig figcaption b {
+  display: block;
+  margin-bottom: 0.3rem;
+  color: var(--text);
+}
+.fig figcaption strong {
+  color: var(--text);
+}
+.fig figcaption .mono {
+  font-family: var(--mono);
+  font-size: 0.88em;
+  color: var(--cyan);
+}
+
+/* ── 證據圖 ───────────────────────────────────────────────────────────────── */
+
+.evidence {
+  margin: 1.5rem 0 0.6rem;
+  border: 1px solid var(--rule);
+  border-radius: 5px;
+  overflow: hidden;
+}
+.evidence > a {
+  display: block;
+  line-height: 0;
+}
+.evidence img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+.evidence figcaption {
+  margin: 0;
+  padding: 1rem 1.2rem;
+  background: var(--surface);
+  color: var(--muted);
+  font-size: 0.86rem;
+  line-height: 1.8;
+  text-align: left;
+}
+.evidence figcaption strong {
+  color: var(--text);
+}
+.evidence figcaption .mono {
+  font-family: var(--mono);
+  font-size: 0.9em;
+  color: var(--cyan);
+}
+.evidence figcaption a {
+  white-space: nowrap;
+}
+
+figcaption {
+  margin-top: 0.7rem;
+  font-size: 0.85rem;
+  line-height: 1.75;
+  color: var(--muted);
+  text-align: left;
+}
+
+/* ── 頁尾 ─────────────────────────────────────────────────────────────────── */
+
+footer {
+  background: var(--navy);
+  color: #9dc0dc;
+  padding: 2rem 0;
+  font-size: 0.85rem;
+}
+footer p {
+  margin: 0;
+  text-align: left;
+}
+
+/* ── 手機 ─────────────────────────────────────────────────────────────────── */
+
+@media (max-width: 640px) {
+  body {
+    font-size: 0.97rem;
+  }
+  p,
+  .concepts dd {
+    text-align: left;
+  }
+  .stats .wrap {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.2rem 0.8rem;
+  }
+  h2 {
+    font-size: 1.3rem;
+  }
+  .trajectory {
+    text-align: left;
+    line-height: 2.1;
+  }
+  .actions .btn {
+    flex: 1 1 100%;
+    justify-content: center;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  * {
+    transition: none !important;
+  }
+}
+
+@media print {
+  #nav,
+  .actions,
+  footer {
+    display: none;
+  }
+  body {
+    font-size: 10.5pt;
+  }
+  .hero,
+  .stats,
+  .finding,
+  .trajectory,
+  th,
+  .evidence figcaption {
+    background: #fff !important;
+    color: #000 !important;
+  }
+  section {
+    page-break-inside: avoid;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   v2.1 —— 依 redesign-existing-projects 的 audit 修正
+
+   最重要的一條：**淺色頁中途不要突然跳深色。**
+   v2 為了「有視覺重點」在頁面中段放了十個深色塊（發現框、表頭、軌跡列、
+   圖說條……），結果讀起來像複製貼上的意外。
+   改為深色只留頭尾（導覽 + 首屏 + 數字帶 + 頁尾），
+   中段一律改用同色系的 --surface 做層次。
+
+   刻意不採納的建議（那份 audit 是為行銷網站寫的）：
+     · parallax 卡片堆疊、split-screen 捲動、文字遮罩揭露
+       —— 在博班審查委員眼裡是花俏，會削弱可信度
+     · 打破對稱、元素重疊出血
+       —— 學術頁的可預測性本身就是價值，讀者要快速定位資訊
+     · picsum 佔位圖
+       —— 這是真人的學術頁，不放與內容無關的裝飾圖
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* 標題不留孤字 */
+h1,
+h2,
+h3,
+h4,
+.lede,
+.finding-text,
+.claim {
+  text-wrap: balance;
+}
+p,
+dd,
+li,
+figcaption {
+  text-wrap: pretty;
+}
+
+/* 按壓回饋：沒有這個，介面感覺不到「按下去了」 */
+.btn:active,
+#nav a:active {
+  transform: translateY(1px);
+}
+.btn {
+  transition:
+    background-color 0.15s ease,
+    color 0.15s ease,
+    transform 0.08s ease;
+}
+
+/* 極細顆粒：純平面在大面積深色上會顯得死板。
+   用 SVG feTurbulence 而非圖檔，零額外請求。 */
+.hero::after,
+footer::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+.hero,
+footer {
+  position: relative;
+}
+.hero > .wrap,
+footer > .wrap {
+  position: relative;
+  z-index: 1;
+}
+
+/* 陰影帶背景色相，不要純黑 */
+.pub {
+  box-shadow: 0 1px 2px rgba(11, 37, 69, 0.05);
+}
+
+/* 淺底上的 .finding 需要一點層次，但不要變成又一個深色塊 */
+.finding {
+  box-shadow: inset 0 0 0 1px var(--surface-line);
+}

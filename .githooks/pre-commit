@@ -1,0 +1,63 @@
+#!/bin/sh
+# 公開 repo 的守門員。
+#
+# 這是 public repo：commit 進來的東西一旦 push 就永遠留在 git 歷史裡，
+# 就算之後刪掉也撤不回 —— 伺服器端與網頁存檔仍可能保有副本。
+# 因此把關必須在 commit 之前。
+#
+# 擋兩件事：
+#   1. 疑似個資的檔名
+#   2. 疑似個資的內容（身分證字號、居留證號、手機、信用卡、護照）
+#
+# token 外洩可以撤銷重發；身分證字號無法撤銷。
+#
+# 安裝：git config core.hooksPath .githooks
+
+fail=0
+
+# --- 1. 檔名 ---------------------------------------------------------------
+sensitive=$(git diff --cached --name-only --diff-filter=ACM |
+    grep -E '身分證|成績單|在職證明|勞保|所得|離職證明|護照|戶籍|\.p12$|\.pfx$|\.pem$|id_rsa')
+
+if [ -n "$sensitive" ]; then
+    echo "✗ 以下檔案的檔名疑似個資，不該進公開 repo："
+    echo "$sensitive" | sed 's/^/    /'
+    fail=1
+fi
+
+# --- 2. 內容 ---------------------------------------------------------------
+# 掃暫存區的實際內容，不是工作目錄 —— 兩者可能不同。
+# 含 orcid 的行先剔除：ORCID iD（0009-0000-9948-1200）的形狀與信用卡號相同，
+# 不排除會擋下合法 commit。擋錯一次，人就會習慣 --no-verify，整道閘門等於失效。
+piifile=$(mktemp)
+rm -f "$piifile"
+
+git diff --cached --name-only --diff-filter=ACM |
+    grep -E '\.(html|css|md|txt|json|ya?ml|js)$' |
+while IFS= read -r f; do
+    hits=$(git show ":$f" | grep -vi 'orcid' | grep -nE \
+        -e '\b[A-Z][12][0-9]{8}\b' \
+        -e '\b[A-Z][ABCD][0-9]{8}\b' \
+        -e '\b09[0-9]{2}[- ]?[0-9]{3}[- ]?[0-9]{3}\b' \
+        -e '\b([0-9]{4}[- ]){3}[0-9]{4}\b' \
+        -e '護照號碼[[:space:]]*[:：]?[[:space:]]*[0-9]{8,9}')
+    if [ -n "$hits" ]; then
+        echo "✗ $f 疑似含個資："
+        echo "$hits" | sed 's/^/    /'
+        touch "$piifile"
+    fi
+done
+
+if [ -e "$piifile" ]; then
+    fail=1
+    echo "  個資無法撤銷。確認是誤判再用 --no-verify。"
+fi
+rm -f "$piifile"
+
+if [ $fail -ne 0 ]; then
+    echo ""
+    echo "commit 已中止。"
+    exit 1
+fi
+
+exit 0

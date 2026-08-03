@@ -1,0 +1,69 @@
+name: Deploy to GitHub Pages
+
+# 2026-08-02 起改為部署 site/ 的手寫單頁站，不再跑 Quartz。
+#
+# 原因：Quartz 是知識庫發布工具，版面語彙（檔案樹、關係圖譜、反向連結）
+# 對博班審查委員是雜訊。單頁學術個人頁能完全依內容設計。
+#
+# 代價：vault 的 20_Areas/Research 不再自動上站，六篇研究筆記已改寫進 site/index.html。
+# Quartz 的檔案（quartz/、content/、quartz.config.yaml）保留未刪，
+# 要退回去只需把本檔的 build 步驟改回 `npx quartz build` 並改 path 為 public。
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# 同時只跑一個部署；新的 push 進來就取消排隊中的舊 build。
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      - name: 檢查必要檔案
+        # 純靜態站沒有建置步驟，缺檔不會有任何錯誤訊息 ——
+        # 會安靜地部署一個壞掉的網站。這一步是唯一的把關。
+        run: |
+          set -e
+          required="
+            site/index.html
+            site/style.css
+            site/files/shi-zhe-zheng-cv.pdf
+            site/files/shi-zhe-zheng-research-summary.pdf
+            site/files/closed-loop-case.jpg
+            site/files/closed-loop-evidence-full.jpg
+            site/files/og-image.png
+            site/files/architecture.png
+            site/files/attention-bias.jpg
+          "
+          for f in $required
+          do
+            [ -s "$f" ] || { echo "::error::缺少或空白：$f"; exit 1; }
+          done
+          echo "✓ 必要檔案齊全"
+
+      - uses: actions/configure-pages@v5
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
