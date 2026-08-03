@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="zh-Hant">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Sanniel Lab — Auditable AI & Autonomous Systems</title>
+    <meta name="description" content="Sanniel Lab 研究入口：可稽核 AI、多模態自主系統、視覺語言模型、安全關鍵控制與 AI 治理。" />
+    <meta name="author" content="史哲政 Zhe-Zheng Shi" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Sanniel Lab — Auditable AI & Autonomous Systems" />
+    <meta property="og:description" content="Building autonomous systems that are performant, reviewable, contestable, and defensible." />
+    <meta property="og:url" content="https://sanniel0315.github.io/sanniel-lab/lab.html" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&family=IBM+Plex+Mono:wght@400&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <a class="skip" href="#main">跳至主要內容</a>
+    <nav id="nav">
+      <div class="nav-inner">
+        <a class="nav-name" href="#top">Sanniel Lab</a>
+        <ul>
+          <li><a href="#vision">研究願景</a></li>
+          <li><a href="#programs">研究計畫</a></li>
+          <li><a href="#outputs">成果</a></li>
+          <li><a href="#platforms">平台</a></li>
+          <li><a href="#join">PhD</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <main id="main">
+      <header id="top" class="hero">
+        <div class="wrap">
+          <p class="eyebrow">Auditable AI & Autonomous Systems</p>
+          <h1>Sanniel Lab<span class="latin">Research by Zhe-Zheng Shi</span></h1>
+          <p class="lede">
+            We study how AI systems can remain reliable under closed-loop operation and accountable under independent review.
+            The lab connects multimodal learning, autonomous driving, systems engineering, and information audit to build
+            AI that is not only accurate, but also <strong>traceable, testable, and defensible</strong>.
+          </p>
+          <p class="downloads">
+            <a href="index.html">研究者完整資料</a>　·　<a href="phd.html">PhD Application Profile</a>　·　
+            <a href="files/shi-zhe-zheng-cv.pdf">Academic CV</a>
+          </p>
+        </div>
+      </header>
+
+      <section id="vision">
+        <div class="wrap">
+          <h2>研究願景</h2>
+          <div class="finding">
+            <p class="finding-label">Core Question</p>
+            <p class="finding-text">When AI acts in the physical world, what evidence is required to verify what it perceived, decided, executed, and recorded?</p>
+            <p class="finding-note">研究目標不是產生更漂亮的事後說法，而是建立能被第三方檢驗的決策與證據架構。</p>
+          </div>
+          <p>
+            現有 Explainable AI 多半服務開發者除錯；安全關鍵系統還必須面對稽核、驗收、事故重建、監理與法律責任。
+            Sanniel Lab 將「可稽核性」視為系統架構需求，從模型訓練、閉環控制、執行紀錄到治理流程共同設計。
+          </p>
+        </div>
+      </section>
+
+      <section id="programs">
+        <div class="wrap">
+          <h2>核心研究計畫</h2>
+          <ul class="entries">
+            <li>
+              <span class="what">Dual-Process Auditable Driving</span>
+              <span class="note">以嚴格梯度隔離分離高速幾何控制與低頻語義推理，處理共享編碼器造成的幾何崩潰。</span>
+            </li>
+            <li>
+              <span class="what">DriveLM-Control</span>
+              <span class="note">研究視覺語言表徵如何映射至連續駕駛控制，以及離線誤差為何無法保證閉環可行性。</span>
+            </li>
+            <li>
+              <span class="what">GVQA Evidence Layer</span>
+              <span class="note">以分層問答表徵記錄場景、風險、意圖與決策依據，形成可檢索的語義證據。</span>
+            </li>
+            <li>
+              <span class="what">Human-in-the-Loop Driving</span>
+              <span class="note">整合 Logitech G923、人類示範、接管、安全仲裁與力回饋，研究人機責任邊界。</span>
+            </li>
+            <li>
+              <span class="what">Edge AI for Public Infrastructure</span>
+              <span class="note">將視覺推論、事件判定與 API 部署至 Jetson 邊緣平台，連結公共安全與實際營運需求。</span>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <section id="outputs">
+        <div class="wrap">
+          <h2>代表性成果</h2>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>研究證據</th><th>結果</th></tr></thead>
+              <tbody>
+                <tr><td>閉環路線測試</td><td>Town10HD-Bench：10 路線 × 3 難度，100% 完成、零碰撞</td></tr>
+                <tr><td>高速控制系統</td><td>ResNet-50 + WaypointHead + Pure Pursuit，Steer MAE 0.0144，約 200 Hz</td></tr>
+                <tr><td>語義稽核層</td><td>BLIP-2 + Flan-T5-XL LoRA，GVQA 一致率 96.9%</td></tr>
+                <tr><td>失效機制</td><td>語言／控制梯度壓力約 35–41:1；統一架構閉環完成率低於 9%</td></tr>
+                <tr><td>研究資料</td><td>開迴路 45,917 幀；閉環研究 221,052 幀</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="explain"><b>主要結論</b>開環表現較好的模型，閉環中可能更快失效。安全關鍵 AI 的驗證單位必須是完整系統，而不是單一模型指標。</p>
+          <p><a href="index.html#publications">查看著作與投稿</a>　·　<a href="index.html#research">查看完整研究證據與架構圖</a></p>
+        </div>
+      </section>
+
+      <section id="platforms">
+        <div class="wrap">
+          <h2>研究與實作平台</h2>
+          <dl class="concepts">
+            <dt>Autonomous Driving Simulation</dt>
+            <dd>CARLA 0.10.0、Town10HD_Opt、閉環路線基準、多場景與惡劣天候測試。</dd>
+            <dt>Multimodal AI</dt>
+            <dd>ViT、BLIP-2、Q-Former、Flan-T5-XL、LoRA/SFT、GVQA 與多模態控制解碼。</dd>
+            <dt>Human Interface</dt>
+            <dd>Logitech G923、125 Hz 控制、人類示範、接管、E-Brake 與 TrueForce 實驗。</dd>
+            <dt>Edge Deployment</dt>
+            <dd>Jetson Orin NX、DeepStream、TensorRT、YOLO、RTSP 與實體公共基礎設施情境。</dd>
+            <dt>Governance and Audit</dt>
+            <dd>CISA、CISM、ISO 27001 Lead Auditor 與二十年需接受稽核的系統整合經驗。</dd>
+          </dl>
+        </div>
+      </section>
+
+      <section id="join">
+        <div class="wrap">
+          <h2>PhD Research Direction</h2>
+          <p>
+            下一階段研究將聚焦 Auditable Multimodal Decision Systems、VLM Agent 閉環驗證、Evidence-Aware Architecture、
+            Sim-to-Real Trust Transfer，以及人類與監理責任如何被嵌入自主系統。
+          </p>
+          <p>
+            適合的合作領域包括 Autonomous Driving、Robotics、Embodied AI、Multimodal Learning、Safety-Critical Systems、
+            Trustworthy AI、Human-AI Interaction 與 AI Governance。
+          </p>
+          <p><a href="phd.html"><strong>進入 PhD Application Profile →</strong></a></p>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="wrap"><p>© 2026 Sanniel Lab · 史哲政 Zhe-Zheng Shi · <a href="index.html">完整學術個人頁</a></p></div>
+    </footer>
+  </body>
+</html>
