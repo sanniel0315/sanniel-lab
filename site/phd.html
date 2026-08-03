@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="zh-Hant">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>PhD Application Profile — 史哲政 Zhe-Zheng Shi</title>
+    <meta name="description" content="史哲政的博士班申請研究檔案：可稽核 AI、視覺語言模型、安全關鍵自主系統與自主駕駛。" />
+    <meta name="author" content="史哲政 Zhe-Zheng Shi" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&family=IBM+Plex+Mono:wght@400&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <a class="skip" href="#main">跳至主要內容</a>
+    <nav id="nav">
+      <div class="nav-inner">
+        <a class="nav-name" href="index.html">史哲政</a>
+        <ul>
+          <li><a href="#positioning">研究定位</a></li>
+          <li><a href="#evidence">研究證據</a></li>
+          <li><a href="#agenda">博士研究議程</a></li>
+          <li><a href="#fit">指導適配</a></li>
+          <li><a href="#materials">申請資料</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <main id="main">
+      <header class="hero" id="top">
+        <div class="wrap">
+          <p class="eyebrow">PhD Application Research Profile</p>
+          <h1>史哲政<span class="latin">Zhe-Zheng Shi</span></h1>
+          <p class="affil">AI Systems · Autonomous Driving · Vision-Language Models · Auditable AI</p>
+          <p class="lede">
+            我研究的核心問題是：當 AI 進入自主駕駛、公共安全與其他安全關鍵系統時，
+            如何讓模型不只「能解釋」，而且能留下可由第三方驗證、重現與追責的證據鏈。
+            我的研究結合多模態 AI、閉環控制、系統工程與資訊稽核，目標是建立
+            <strong>可信賴、可稽核、可部署的自主系統</strong>。
+          </p>
+          <p class="downloads">
+            <a href="index.html">完整學術網站</a>　·　
+            <a href="files/shi-zhe-zheng-cv.pdf">Academic CV</a>　·　
+            <a href="files/shi-zhe-zheng-research-summary.pdf">Research Summary</a>
+          </p>
+        </div>
+      </header>
+
+      <section id="positioning">
+        <div class="wrap">
+          <h2>研究定位</h2>
+          <div class="finding">
+            <p class="finding-label">Research Thesis</p>
+            <p class="finding-text">
+              Explainability helps developers understand a model; auditability enables independent parties
+              to verify what the system perceived, decided, executed, and recorded.
+            </p>
+            <p class="finding-note">可解釋不等於可稽核；安全關鍵 AI 必須同時處理控制可靠性與證據責任。</p>
+          </div>
+          <h3>主要研究方向</h3>
+          <ul>
+            <li><strong>Auditable AI：</strong>把模型輸出、控制決策、因果依據與系統紀錄組成可驗證證據鏈。</li>
+            <li><strong>Vision-Language Driving：</strong>研究 VLM 在駕駛理解、語義推理與決策支援中的角色與限制。</li>
+            <li><strong>Safety-Critical Control：</strong>以閉環實驗、失效分析與安全仲裁驗證自主系統。</li>
+            <li><strong>AI Governance by Design：</strong>將治理、稽核與問責要求嵌入系統架構，而非事後補件。</li>
+          </ul>
+        </div>
+      </section>
+
+      <section id="evidence">
+        <div class="wrap">
+          <h2>研究證據</h2>
+          <h3>1. 發現共享編碼器的幾何崩潰</h3>
+          <p>
+            在視覺語言模型與連續控制器共用視覺編碼器的設定下，我刻畫出語義推理與幾何控制的結構性衝突。
+            語言建模梯度會壓過控制學習，ViT 注意力亦偏向高語義密度區域，使車道邊界等稀疏幾何線索被忽略。
+          </p>
+
+          <h3>2. 建立嚴格梯度隔離的雙過程架構</h3>
+          <p>
+            System 1 專責高速幾何控制；System 2 專責低頻語義推理與 GVQA 稽核紀錄。
+            兩者訓練完全分離，推論僅透過受限制的非對稱因果橋耦合，避免語言梯度破壞控制表徵。
+          </p>
+
+          <h3>3. 以閉環而非單純離線指標驗證</h3>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>成果</th><th>結果</th><th>意義</th></tr></thead>
+              <tbody>
+                <tr><td>Town10HD-Bench</td><td>10 路線 × 3 難度，100% 完成</td><td>驗證實際閉環可行性</td></tr>
+                <tr><td>安全表現</td><td>零碰撞</td><td>控制架構具穩定性</td></tr>
+                <tr><td>System 1</td><td>Steer MAE 0.0144，約 200 Hz</td><td>支援即時幾何控制</td></tr>
+                <tr><td>GVQA</td><td>一致率 96.9%</td><td>支援語義紀錄與稽核</td></tr>
+                <tr><td>研究資料</td><td>221,052 幀</td><td>具系統化實驗基礎</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h3>4. 具備跨域實作與治理經驗</h3>
+          <p>
+            我有二十年系統整合經驗，曾參與科技執法、司法矯正、海事執法、國防與公共能源等需接受稽核的系統；
+            並持有 CISA、CISM、ISO 27001:2022 Lead Auditor、PMP 與 AXIS ACP。
+            這使我的研究不只關注模型精度，也關注證據、責任、驗收、部署與治理。
+          </p>
+        </div>
+      </section>
+
+      <section id="agenda">
+        <div class="wrap">
+          <h2>博士研究議程</h2>
+          <ol>
+            <li><strong>Auditable Multimodal Decision Systems：</strong>建立從感知、推理、規劃到控制的可追溯決策圖。</li>
+            <li><strong>Closed-Loop Evaluation for VLM Agents：</strong>研究離線語言／視覺指標與閉環安全結果之間的落差。</li>
+            <li><strong>Evidence-Aware Architectures：</strong>讓模型在執行任務時同步產生可驗證、不可任意改寫的證據紀錄。</li>
+            <li><strong>Human and Regulatory Accountability：</strong>把人類監督、事故重建與監理需求納入自主系統設計。</li>
+            <li><strong>Sim-to-Real Trust Transfer：</strong>評估 CARLA 中的可稽核機制如何延伸至真實車載與邊緣平台。</li>
+          </ol>
+          <blockquote>
+            Long-term goal: build autonomous systems whose behavior is not only performant, but also reviewable,
+            contestable, and defensible under technical, regulatory, and legal scrutiny.
+          </blockquote>
+        </div>
+      </section>
+
+      <section id="fit">
+        <div class="wrap">
+          <h2>適合的博士指導方向</h2>
+          <p>我最適合加入同時重視下列兩項以上能力的研究團隊：</p>
+          <ul>
+            <li>Autonomous Driving / Robotics / Embodied AI</li>
+            <li>Vision-Language Models / Multimodal Learning</li>
+            <li>Safety-Critical Systems / Formal or Runtime Assurance</li>
+            <li>Explainable, Trustworthy or Responsible AI</li>
+            <li>Human-AI Interaction / AI Governance / Accountability</li>
+          </ul>
+          <p>
+            相較於純理論模型研究，我的優勢在於把研究問題落實為可運行、可量測、可驗證的完整系統，
+            並能從工程交付與稽核視角提出一般 AI 研究較少處理的問題。
+          </p>
+        </div>
+      </section>
+
+      <section id="materials">
+        <div class="wrap">
+          <h2>申請資料</h2>
+          <ul class="entries">
+            <li><span class="what"><a href="files/shi-zhe-zheng-cv.pdf">Academic CV</a></span><span class="note">學歷、研究、專案、證照與二十年系統整合經驗。</span></li>
+            <li><span class="what"><a href="files/shi-zhe-zheng-research-summary.pdf">One-page Research Summary</a></span><span class="note">適合首次聯絡潛在指導教授。</span></li>
+            <li><span class="what"><a href="index.html#publications">Publications and Manuscripts</a></span><span class="note">論文、投稿與研究成果。</span></li>
+            <li><span class="what"><a href="index.html#research">Full Research Evidence</a></span><span class="note">架構、失效機制、閉環實驗與圖表證據。</span></li>
+          </ul>
+        </div>
+      </section>
+    </main>
+
+    <footer><div class="wrap"><p>© 2026 史哲政 Zhe-Zheng Shi · <a href="index.html">返回學術首頁</a></p></div></footer>
+  </body>
+</html>
