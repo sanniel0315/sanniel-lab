@@ -189,10 +189,10 @@
           <figure class="fig">
             <img
               src="files/architecture.png"
-              width="1399"
-              height="768"
+              width="1536"
+              height="916"
               loading="lazy"
-              alt="雙過程架構圖。左側綠色為 System 1 幾何路徑：ResNet-50 骨幹輸出 2048 維特徵，經 WaypointHead 多層感知器產生五個路徑點，再由 Pure Pursuit 與 PID 合成轉向與油門。右側紫色為 System 2 語義路徑：ViT-G/14 凍結視覺編碼器、Q-Former 32 個查詢、Flan-T5-XL 加 LoRA 微調 4.3 M 參數，輸出四層 GVQA 推理鏈。兩條路徑之間以紅色虛線標示無共享參數的梯度防火牆。中央橘色為非對稱因果融合橋，依四條規則決定融合權重。"
+              alt="雙過程架構圖。上方兩個藍色平行四邊形為輸入：前視 RGB 相機 1280x720 @ 30 Hz，以及車輛狀態（自車速度、路徑、位置）。左側綠色為 System 1 幾何路徑：ResNet-50 ImageNet 骨幹輸出 2048 維特徵，經 WaypointHead 多層感知器 2048-512-256-10 產生五個路徑點，再由 Pure Pursuit 加 PID 合成控制，前視距離 2.875 公尺並以 EMA 平滑。右側紫色為 System 2 語義路徑：ViT-G/14 共 14 億參數且凍結、Q-Former 32 個學習查詢且凍結、Flan-T5-XL 加 LoRA r=16 alpha=32 共 430 萬可訓練參數佔 0.10%，輸出 GVQA 四層推理鏈。兩條路徑之間以紅色虛線標示 no shared params、gradient firewall by construction。中央橘色六邊形為非對稱因果融合橋，列出四條規則決定融合權重，並註明縱向為單向否決，System 2 只能煞車。下方三個輸出：幾何控制指令、GVQA 稽核軌跡、以及多種子 n=5 的驗證結果。"
             />
             <figcaption>
               兩條路徑之間那條<strong>紅色虛線</strong>是整個設計的重點：
