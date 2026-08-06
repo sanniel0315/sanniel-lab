@@ -4,8 +4,19 @@
     "source": "700_視覺化軟體_SIT_20260723已回復.xlsx",
     "test_count": 63,
     "question_count": 17,
-    "updated_at": "2026-08-06T13:02:00+08:00",
-    "editor": "SANNIEL-LAB GitHub Admin"
+    "updated_at": "2026-08-06T05:22:39.424515+00:00",
+    "editor": "SANNIEL-LAB GitHub Admin",
+    "last_update": {
+      "issue": 5,
+      "type": "question",
+      "id": "Q-03",
+      "fields": [
+        "廠商回復",
+        "期限",
+        "狀態",
+        "需提供專案"
+      ]
+    }
   },
   "test_parts": [
     "tests-1.json",
