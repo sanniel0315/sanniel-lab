@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Whale-700 SIT Dashboard</title>
+  <meta name="description" content="Whale-700 視覺化雷達軟體 SIT 會議儀表板">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<nav>
+  <div class="nav-inner">
+    <a class="brand" href="../">史哲政｜Sanniel Lab</a>
+    <a href="https://github.com/sanniel0315/sanniel-lab/tree/main/apps/whale-700-sit">Streamlit 原始碼</a>
+  </div>
+</nav>
+
+<main>
+  <header class="hero">
+    <h1>Whale-700 視覺化雷達軟體 SIT</h1>
+    <p class="subtitle">資料驅動的系統整合測試會議介面｜靜態快照由 Excel 自動輸出</p>
+  </header>
+
+  <section>
+    <h2>篩選與快速定位</h2>
+    <div class="controls">
+      <label>分類<select id="category"><option value="">全部</option></select></label>
+      <label>優先級<select id="priority"><option value="">全部</option></select></label>
+      <label>判定<select id="status"><option value="">全部</option></select></label>
+      <label>全文搜尋<input id="keyword" type="search" placeholder="編號、項目、規格或備註"></label>
+    </div>
+  </section>
+
+  <section>
+    <h2>SIT 執行總覽</h2>
+    <div id="kpis" class="kpis"></div>
+    <div class="grid-2">
+      <div>
+        <h3>各分類測項</h3>
+        <div id="categoryBars"></div>
+      </div>
+      <div>
+        <h3>執行狀態</h3>
+        <div id="statusBars"></div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>測試項目</h2>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>編號</th><th>分類</th><th>測試項目</th><th>P</th><th>判定</th><th>實測值</th><th>缺失單</th></tr></thead>
+        <tbody id="testRows"></tbody>
+      </table>
+    </div>
+    <div id="testDetail" class="detail"></div>
+  </section>
+
+  <section>
+    <h2>待釐清事項</h2>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>編號</th><th>類別</th><th>議題</th><th>需求對象</th><th>期限</th><th>狀態</th></tr></thead>
+        <tbody id="questionRows"></tbody>
+      </table>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <p>Whale-700 SIT Dashboard｜資料來源：Whale-700 SIT Excel</p>
+</footer>
+<script src="app.js"></script>
+</body>
+</html>
