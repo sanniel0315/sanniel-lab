@@ -20,8 +20,8 @@ DEFAULT_WORKBOOK = next(
     None,
 )
 DEFAULT_JSON_CANDIDATES = [
-    APP_DIR / "static" / "data.json",
-    APP_DIR.parent.parent / "site" / "whale-700-sit" / "data.json",
+    APP_DIR / "static" / "data-manifest.json",
+    APP_DIR.parent.parent / "site" / "whale-700-sit" / "data-manifest.json",
 ]
 DEFAULT_JSON = next(
     (path for path in DEFAULT_JSON_CANDIDATES if path.exists()),
@@ -232,12 +232,19 @@ def load_sit_workbook(raw_bytes: bytes) -> tuple[pd.DataFrame, pd.DataFrame, pd.
     return sit, questions, info
 
 
-
 @st.cache_data(show_spinner=False)
 def load_snapshot_json(path: str) -> tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame]:
-    payload = json.loads(Path(path).read_text(encoding="utf-8"))
-    sit = pd.DataFrame(payload["tests"])
-    questions = pd.DataFrame(payload["questions"])
+    manifest_path = Path(path)
+    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    base = manifest_path.parent
+    tests = []
+    for filename in manifest["test_parts"]:
+        tests.extend(json.loads((base / filename).read_text(encoding="utf-8")))
+    question_rows = []
+    for filename in manifest["question_parts"]:
+        question_rows.extend(json.loads((base / filename).read_text(encoding="utf-8")))
+    sit = pd.DataFrame(tests)
+    questions = pd.DataFrame(question_rows)
     sit["判定"] = sit["判定"].fillna("未執行").replace("", "未執行")
     for column in ["優先級", "分類", "V2 實測值", "缺失單號", "備註 / 待釐清"]:
         sit[column] = sit[column].fillna("")
