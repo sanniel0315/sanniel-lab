@@ -10,8 +10,11 @@
 <body>
 <nav>
   <div class="nav-inner">
-    <a class="brand" href="../">史哲政｜Sanniel Lab</a>
-    <a href="https://github.com/sanniel0315/sanniel-lab/tree/main/apps/whale-700-sit">Streamlit 原始碼</a>
+    <a class="brand" href="../">史哲政｜SANNIEL-LAB</a>
+    <div class="nav-links">
+      <a class="admin-link" href="admin/">線上修改</a>
+      <a href="https://github.com/sanniel0315/sanniel-lab/tree/main/apps/whale-700-sit">原始碼</a>
+    </div>
   </div>
 </nav>
 
@@ -19,6 +22,7 @@
   <header class="hero">
     <h1>Whale-700 視覺化雷達軟體 SIT</h1>
     <p class="subtitle">資料驅動的系統整合測試會議介面｜現有 7 項 Pass 承接自 V1(0707) 明確符合項，正式 V2 驗收仍需補齊量化佐證</p>
+    <p id="dataMeta" class="data-meta"></p>
   </header>
 
   <section>
@@ -57,7 +61,7 @@
     <div id="testDetail" class="detail"></div>
   </section>
 
-  <section>
+  <section id="questions">
     <h2>待釐清事項</h2>
     <div class="table-wrap">
       <table>
@@ -69,7 +73,7 @@
 </main>
 
 <footer>
-  <p>Whale-700 SIT Dashboard｜資料來源：Whale-700 SIT Excel</p>
+  <p>Whale-700 SIT Dashboard｜資料來源：SANNIEL-LAB GitHub</p>
 </footer>
 <script src="app.js"></script>
 </body>
