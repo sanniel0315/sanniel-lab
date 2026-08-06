@@ -32,7 +32,7 @@ streamlit run streamlit_app.py
 Streamlit 可直接上傳最新版 Excel。若要同步更新 GitHub Pages 的靜態快照：
 
 ```bash
-python apps/whale-700-sit/scripts/export_data.py <最新版SIT.xlsx> site/whale-700-sit/data.json
+python apps/whale-700-sit/scripts/export_data.py <最新版SIT.xlsx> site/whale-700-sit/data-manifest.json
 ```
 
 ## Streamlit Community Cloud
