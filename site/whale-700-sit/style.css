@@ -39,11 +39,20 @@ nav {
   justify-content: space-between;
   gap: 1rem;
 }
+.nav-links { display: flex; align-items: center; gap: 1.1rem; font-size: .9rem; }
+.admin-link {
+  border: 1px solid var(--navy);
+  padding: .28rem .7rem;
+  text-decoration: none;
+  font-weight: 650;
+}
+.admin-link:hover { background: #f4f6fa; }
 .brand { color: var(--text); text-decoration: none; font-weight: 650; }
 main { padding-top: 2.6rem; padding-bottom: 3rem; }
 .hero { border-bottom: 1px solid var(--rule); padding-bottom: 1.8rem; }
 h1 { margin: 0; color: var(--navy); font-size: clamp(1.65rem, 3vw, 2.25rem); line-height: 1.35; }
 .subtitle { color: var(--muted); margin: .5rem 0 0; }
+.data-meta { color: #7a7a7a; font-size: .8rem; margin: .35rem 0 0; }
 section { padding: 2rem 0; border-bottom: 1px solid var(--rule); }
 h2 { font-size: 1.15rem; letter-spacing: .03em; }
 .controls {
@@ -115,4 +124,6 @@ footer { padding-top: 1.5rem; padding-bottom: 2rem; color: var(--muted); font-si
   .controls, .kpis { grid-template-columns: 1fr 1fr; }
   .detail dl { grid-template-columns: 1fr; }
   .detail dt { border-bottom: none; padding-bottom: 0; }
+  .nav-links { gap: .5rem; }
+  .nav-links a:not(.admin-link) { display: none; }
 }
