@@ -204,13 +204,30 @@ def _read_bytes(source: Path | BinaryIO) -> bytes:
     return source.read()
 
 
+def normalize_test_status(sit: pd.DataFrame) -> pd.DataFrame:
+    """承接 V1 已明確通過的項目，並保留 V2 後續補測要求。"""
+    sit = sit.copy()
+    status = sit["判定"].fillna("").astype(str).str.strip()
+    if "V1(0707)對應" in sit.columns:
+        legacy = sit["V1(0707)對應"].fillna("").astype(str).str.strip()
+        inherited = status.eq("") & legacy.eq("符合")
+        status = status.mask(inherited, "Pass")
+        if "V2 實測值" in sit.columns:
+            measured = sit["V2 實測值"].fillna("").astype(str).str.strip()
+            sit.loc[inherited & measured.eq(""), "V2 實測值"] = (
+                "沿用 V1(0707)：符合（正式 V2 驗收仍需補齊量化佐證）"
+            )
+    sit["判定"] = status.replace("", "未執行")
+    return sit
+
+
 @st.cache_data(show_spinner=False)
 def load_sit_workbook(raw_bytes: bytes) -> tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame]:
     book = io.BytesIO(raw_bytes)
 
     sit = pd.read_excel(book, sheet_name=SIT_SHEET, dtype=object, engine="openpyxl")
     sit = sit[sit["編號"].astype(str).str.match(r"^SIT-", na=False)].copy()
-    sit["判定"] = sit["判定"].fillna("未執行").replace("", "未執行")
+    sit = normalize_test_status(sit)
     sit["優先級"] = sit["優先級"].fillna("")
     sit["分類"] = sit["分類"].fillna("")
     sit["V2 實測值"] = sit["V2 實測值"].fillna("")
@@ -245,7 +262,7 @@ def load_snapshot_json(path: str) -> tuple[pd.DataFrame, pd.DataFrame, pd.DataFr
         question_rows.extend(json.loads((base / filename).read_text(encoding="utf-8")))
     sit = pd.DataFrame(tests)
     questions = pd.DataFrame(question_rows)
-    sit["判定"] = sit["判定"].fillna("未執行").replace("", "未執行")
+    sit = normalize_test_status(sit)
     for column in ["優先級", "分類", "V2 實測值", "缺失單號", "備註 / 待釐清"]:
         sit[column] = sit[column].fillna("")
     questions["狀態"] = questions["狀態"].fillna("Open").replace("", "Open")
@@ -350,7 +367,8 @@ st.title("Whale-700 視覺化雷達軟體 SIT")
 st.markdown(
     '<div class="subtitle">'
     "系統整合測試會議儀表板｜Excel 為單一資料來源，"
-    "更新主表後重新載入即可同步呈現。"
+    "更新主表後重新載入即可同步呈現。現有 7 項 Pass 承接自 V1(0707) 明確符合項，"
+    "正式 V2 驗收仍需補齊量化佐證。"
     "</div>",
     unsafe_allow_html=True,
 )
