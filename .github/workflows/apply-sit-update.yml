@@ -5,6 +5,7 @@ on:
     types: [opened, reopened]
 
 permissions:
+  actions: write
   contents: write
   issues: write
 
@@ -27,6 +28,7 @@ jobs:
         run: python apps/whale-700-sit/scripts/apply_issue_update.py
 
       - name: Commit data update
+        id: commit
         env:
           ISSUE_NUMBER: ${{ github.event.issue.number }}
           SUMMARY: ${{ steps.update.outputs.summary }}
@@ -37,11 +39,19 @@ jobs:
           git config user.email "51775347+sanniel0315@users.noreply.github.com"
           git add -- "$CHANGED_FILE" site/whale-700-sit/data-manifest.json
           if git diff --cached --quiet; then
+            echo "committed=false" >> "$GITHUB_OUTPUT"
             echo "No data change to commit."
           else
             git commit -m "data(sit): ${SUMMARY} (#${ISSUE_NUMBER})"
             git push origin HEAD:main
+            echo "committed=true" >> "$GITHUB_OUTPUT"
           fi
+
+      - name: Explicitly redeploy GitHub Pages
+        if: steps.commit.outputs.committed == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run deploy.yaml --ref main
 
       - name: Record result and close update issue
         uses: actions/github-script@v7
@@ -54,7 +64,7 @@ jobs:
               "",
               `**${process.env.SUMMARY}**`,
               "",
-              "資料已寫回 `main`；GitHub Pages 會由既有部署流程重新發布。",
+              "資料已寫回 `main`，並已明確觸發 GitHub Pages 重新發布。",
               `稽核來源：#${context.issue.number} / ${context.actor}`
             ].join("\n");
             await github.rest.issues.createComment({
