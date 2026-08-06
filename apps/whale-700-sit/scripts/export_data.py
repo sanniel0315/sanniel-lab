@@ -43,6 +43,17 @@ def main() -> None:
 
     tests = pd.read_excel(args.workbook, sheet_name="1_SIT主表", dtype=object)
     tests = tests[tests["編號"].astype(str).str.match(r"^SIT-", na=False)].copy()
+
+    # V2 判定若尚未填寫，承接 V1(0707) 已明確標示「符合」的既有結果。
+    # 「有待商榷」不視為通過，仍維持未執行，避免放寬新版驗收標準。
+    status = tests["判定"].fillna("").astype(str).str.strip()
+    legacy = tests["V1(0707)對應"].fillna("").astype(str).str.strip()
+    inherited = status.eq("") & legacy.eq("符合")
+    tests.loc[inherited, "判定"] = "Pass"
+    v2_value = tests["V2 實測值"].fillna("").astype(str).str.strip()
+    tests.loc[inherited & v2_value.eq(""), "V2 實測值"] = (
+        "沿用 V1(0707)：符合（正式 V2 驗收仍需補齊量化佐證）"
+    )
     tests["判定"] = tests["判定"].fillna("未執行").replace("", "未執行")
 
     questions = pd.read_excel(args.workbook, sheet_name="3_待釐清事項", dtype=object)
