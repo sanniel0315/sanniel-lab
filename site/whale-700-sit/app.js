@@ -149,8 +149,22 @@ function render() {
   renderQuestions();
 }
 
-fetch("data.json")
-  .then(response => response.json())
+async function loadData() {
+  const manifest = await fetch("data-manifest.json").then(response => response.json());
+  const testParts = await Promise.all(
+    manifest.test_parts.map(file => fetch(file).then(response => response.json()))
+  );
+  const questionParts = await Promise.all(
+    manifest.question_parts.map(file => fetch(file).then(response => response.json()))
+  );
+  return {
+    meta: manifest.meta,
+    tests: testParts.flat(),
+    questions: questionParts.flat(),
+  };
+}
+
+loadData()
   .then(data => {
     state.data = data;
     state.filtered = data.tests;
