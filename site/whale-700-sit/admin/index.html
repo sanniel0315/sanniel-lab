@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SANNIEL-LAB｜Whale-700 SIT 管理後台</title>
+  <meta name="description" content="Whale-700 SIT 線上修改與 GitHub 發布後台">
+  <link rel="stylesheet" href="admin.css">
+</head>
+<body>
+<nav>
+  <div class="nav-inner">
+    <a class="brand" href="../../">史哲政｜SANNIEL-LAB</a>
+    <div class="nav-links">
+      <a href="../">返回儀表板</a>
+      <a href="https://github.com/sanniel0315/sanniel-lab/issues" target="_blank" rel="noreferrer">更新紀錄</a>
+    </div>
+  </div>
+</nav>
+
+<main>
+  <header class="hero">
+    <p class="eyebrow">SANNIEL-LAB · GitHub-controlled editor</p>
+    <h1>Whale-700 SIT 管理後台</h1>
+    <p>
+      在線選擇測項或待釐清事項，修改後送出 GitHub 更新單。
+      僅 Repository 擁有者 <strong>sanniel0315</strong> 的更新會被自動套用；
+      GitHub Actions 寫回資料後，公開儀表板會自動重新發布。
+    </p>
+    <div id="dataMeta" class="meta"></div>
+  </header>
+
+  <section class="mode-switch" aria-label="編輯類型">
+    <button type="button" class="active" data-mode="test">SIT 測試結果</button>
+    <button type="button" data-mode="question">待釐清事項</button>
+  </section>
+
+  <section class="workspace">
+    <aside class="selector">
+      <label for="search">搜尋</label>
+      <input id="search" type="search" placeholder="編號、測試項目或議題">
+      <label for="recordSelect">選擇項目</label>
+      <select id="recordSelect" size="18"></select>
+    </aside>
+
+    <form id="editForm" class="editor">
+      <div class="record-head">
+        <div>
+          <span id="recordType" class="tag"></span>
+          <h2 id="recordTitle">載入中</h2>
+        </div>
+        <a id="viewSource" href="#" target="_blank" rel="noreferrer">查看公開頁</a>
+      </div>
+
+      <div id="testFields">
+        <div class="field-grid">
+          <label>判定
+            <select id="testStatus">
+              <option value="未執行">未執行</option>
+              <option value="Pass">Pass</option>
+              <option value="Fail">Fail</option>
+              <option value="Pending">Pending</option>
+              <option value="N/A">N/A</option>
+              <option value="Doc">Doc</option>
+            </select>
+          </label>
+          <label>缺失單號
+            <input id="defectNo" type="text" placeholder="例如 DEF-2026-001；無則留空">
+          </label>
+        </div>
+        <label>V2 實測值
+          <textarea id="measuredValue" rows="6" placeholder="輸入實測數據、次數、延遲、誤差或觀察結果"></textarea>
+        </label>
+        <label>備註／待釐清
+          <textarea id="testNote" rows="6" placeholder="輸入佐證檔名、阻礙、後續處理或責任分界"></textarea>
+        </label>
+        <div id="testReference" class="reference"></div>
+      </div>
+
+      <div id="questionFields" hidden>
+        <div class="field-grid">
+          <label>狀態
+            <select id="questionStatus">
+              <option value="Open">Open</option>
+              <option value="In Progress">In Progress</option>
+              <option value="Blocked">Blocked</option>
+              <option value="Closed">Closed</option>
+            </select>
+          </label>
+          <label>期限
+            <input id="dueDate" type="date">
+          </label>
+        </div>
+        <label>廠商回復
+          <textarea id="vendorReply" rows="10" placeholder="貼上廠商回覆、規格說明或確認結論"></textarea>
+        </label>
+        <label>需提供項目／後續行動
+          <textarea id="requiredItems" rows="6" placeholder="輸入後續文件、測試條件、責任人或決議"></textarea>
+        </label>
+        <div id="questionReference" class="reference"></div>
+      </div>
+
+      <div class="publish-box">
+        <label class="confirm">
+          <input id="confirmAccuracy" type="checkbox">
+          我已確認本次修改內容正確，並了解送出後會留下 GitHub 稽核紀錄。
+        </label>
+        <button id="publishButton" type="submit" disabled>送出 GitHub 更新單</button>
+        <p class="hint">
+          按鈕會開啟 GitHub Issue 預覽；登入 GitHub 後再按一次
+          <strong>Submit new issue</strong>。自動化完成後，該 Issue 會留下 Commit 紀錄並關閉。
+        </p>
+      </div>
+    </form>
+  </section>
+
+  <section class="audit-note">
+    <h2>資料治理原則</h2>
+    <p>
+      公開頁維持唯讀；修改必須經 GitHub 登入、Issue 留痕、Actions 驗證與 Commit。
+      這樣每一筆 Pass、Fail、Pending 與廠商回覆都有時間、操作者及版本紀錄。
+    </p>
+  </section>
+</main>
+
+<footer>Whale-700 SIT Admin｜SANNIEL-LAB</footer>
+<script src="admin.js"></script>
+</body>
+</html>
