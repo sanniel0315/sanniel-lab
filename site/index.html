@@ -98,6 +98,7 @@
       <div class="nav-inner">
         <a class="nav-name" href="#top">史哲政</a>
         <ul>
+          <li><a href="#direction">博士方向</a></li>
           <li><a href="#research">研究</a></li>
           <li><a href="#publications">著作</a></li>
           <li><a href="#experience">學經歷</a></li>
@@ -125,14 +126,69 @@
             並提出嚴格梯度解耦的雙過程架構，於閉環基準達成完整路線完成與零碰撞。
           </p>
 
-          <p class="downloads">
-            下載：<a href="files/shi-zhe-zheng-cv.pdf">完整 CV（PDF）</a>　·　<a
-              href="files/shi-zhe-zheng-research-summary.pdf"
-              >研究摘要（PDF，一頁）</a
+          <nav class="docs" aria-label="申請文件">
+            <a href="files/shi-zhe-zheng-research-summary.pdf"
+              >Research Summary<span>研究摘要 · PDF 1 頁</span></a
+            >
+            <a href="files/shi-zhe-zheng-cv.pdf"
+              >Academic CV<span>學術履歷 · PDF 2 頁</span></a
+            >
+            <a href="files/shi-zhe-zheng-phd-research-proposal.pdf"
+              >PhD Research Proposal<span>博士研究計畫 · PDF 3 頁</span></a
+            >
+          </nav>
+        </div>
+      </header>
+
+      <!-- ────────────────────────────────────────────── 博士研究方向 -->
+      <!--
+        審查委員 20 秒內要讀到三件事：做過什麼 → 發現什麼問題 → 博士要解什麼。
+        因此放在首屏正下方，而不是研究區尾端的「接下來要解的問題」——
+        那一節仍保留，是這裡第三步的完整版。
+        顯眼靠字級與粗線，不靠色塊（見 style.css 開頭的排版原則）。
+      -->
+      <section id="direction" class="direction">
+        <div class="wrap">
+          <p class="direction-kicker">Ph.D. Research Direction · 博士研究方向</p>
+          <h2 class="direction-title">
+            Trustworthy and Auditable Multimodal Agents for Safety-Critical
+            Autonomous Systems
+          </h2>
+          <p class="direction-sub">
+            Building verifiable links between multimodal reasoning, autonomous
+            decisions, and physical actions.
+          </p>
+          <p class="direction-zh">
+            在多模態推理、自主決策與實體致動之間，建立可被驗證的連結。
+          </p>
+
+          <ol class="arc">
+            <li>
+              <span class="arc-step">做過什麼</span>
+              以視覺語言模型建構可稽核的端到端自駕控制，提出嚴格梯度解耦的雙過程架構：
+              CARLA 閉環五條路線共 5,000&nbsp;m，五個種子皆零碰撞。
+            </li>
+            <li>
+              <span class="arc-step">發現什麼問題</span>
+              視覺語言模型與控制器共用視覺編碼器時，語義-幾何衝突導致幾何崩潰；
+              開環誤差更小的變體，閉環完成率反而不到 9%。
+              解耦之後產出的稽核紀錄，也仍然只是<strong>相關性證據</strong>。
+            </li>
+            <li>
+              <span class="arc-step">博士要解什麼</span>
+              讓「模型推理對致動的影響」成為<strong>可形式化驗證的性質</strong>：
+              權限邊界形式化、致動旁路的完整性、不可否認的稽核軌跡、反事實可檢驗。
+            </li>
+          </ol>
+
+          <p class="direction-more">
+            <a href="#next">三個待解條件</a>　·　<a
+              href="files/shi-zhe-zheng-phd-research-proposal.pdf"
+              >博士研究計畫全文（PDF）</a
             >
           </p>
         </div>
-      </header>
+      </section>
 
       <!-- ────────────────────────────────────────────── 研究 -->
       <section id="research">
@@ -340,7 +396,7 @@
             而安全宣稱由碰撞欄承擔 —— 該欄在五個種子上皆為 0，標準差為零。
           </p>
 
-          <h3>接下來要解的問題</h3>
+          <h3 id="next">接下來要解的問題</h3>
           <p>
             碩士階段產出的稽核紀錄仍是<strong>相關性證據</strong>。
             要讓一段紀錄能承擔責任歸屬，必須同時滿足三個條件，目前無系統同時達成：
@@ -434,16 +490,13 @@
 
           <h3>學歷</h3>
           <ul class="entries">
-            <!--
-              學歷不標年份（2026-08-04 起）。經歷仍標，兩者刻意不同。
-              check-cv-consistency 的學歷比對已同步改為不含日期；
-              若日後要標回年份，那支工具也要一併改。
-            -->
             <li>
+              <span class="when">2024/09 – 2026/06</span>
               <span class="what">國立臺北科技大學</span> 自動化科技研究所　碩士
               <span class="note">指導教授：陳文輝 博士</span>
             </li>
             <li>
+              <span class="when">2021/08 – 2023/06</span>
               <span class="what">國立臺北商業大學</span> 資訊管理系　學士
             </li>
           </ul>
@@ -605,6 +658,7 @@
           <div class="cred">
             <h3>系統與網路</h3>
             <ul>
+              <li>CKA — Certified Kubernetes Administrator</li>
               <li>CKAD — Certified Kubernetes Application Developer</li>
               <li>RHCE · RHCSA</li>
               <li>
@@ -675,19 +729,24 @@
             </li>
           </ul>
 
-          <p class="downloads">
-            下載：<a href="files/shi-zhe-zheng-cv.pdf">完整 CV（PDF）</a>　·　<a
-              href="files/shi-zhe-zheng-research-summary.pdf"
-              >研究摘要（PDF，一頁）</a
+          <nav class="docs" aria-label="申請文件">
+            <a href="files/shi-zhe-zheng-research-summary.pdf"
+              >Research Summary<span>研究摘要 · PDF 1 頁</span></a
             >
-          </p>
+            <a href="files/shi-zhe-zheng-cv.pdf"
+              >Academic CV<span>學術履歷 · PDF 2 頁</span></a
+            >
+            <a href="files/shi-zhe-zheng-phd-research-proposal.pdf"
+              >PhD Research Proposal<span>博士研究計畫 · PDF 3 頁</span></a
+            >
+          </nav>
         </div>
       </section>
     </main>
 
     <footer>
       <div class="wrap">
-        <p>史哲政 Zhe-Zheng Shi · 最後更新 2026 年 8 月</p>
+        <p>史哲政 Zhe-Zheng Shi · Last updated: September 2026 · Ph.D. application portfolio</p>
       </div>
     </footer>
 

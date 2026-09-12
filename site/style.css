@@ -178,10 +178,97 @@ a:hover {
   line-height: 1.8;
 }
 
-.downloads {
+/* 三份申請文件。框線而非填色 —— 與「沒有填色按鈕」的原則一致，
+   但要一眼看出是可點的東西，不能再是一行灰色小字。
+   有框線就不只靠顏色區分，因此這裡不加底線。 */
+.docs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
   margin: 0;
-  font-size: 0.92rem;
+}
+.docs a {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 11rem;
+  padding: 0.55rem 0.8rem;
+  border: 1px solid var(--link);
+  color: var(--link);
+  font-weight: 600;
+  line-height: 1.4;
+  text-decoration: none;
+}
+.docs a span {
+  margin-top: 0.15rem;
+  font-size: 0.8rem;
+  font-weight: 400;
   color: var(--muted);
+}
+.docs a:hover,
+.docs a:focus-visible {
+  background: #f3f6fa;
+}
+
+/* ── 博士研究方向 ─────────────────────────────────────────────────────────── */
+/* 全站最顯眼的區塊，但顯眼只靠字級與粗線，不靠色塊。 */
+
+.direction {
+  margin-top: -1px; /* 蓋掉首屏的細底線，否則細線與粗線會疊成一條 */
+  border-top: 3px solid var(--text);
+  border-bottom: 3px solid var(--text);
+}
+.direction-kicker {
+  margin: 0 0 0.5rem;
+  font-family: var(--mono);
+  font-size: 0.8rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.direction-title {
+  margin: 0 0 0.7rem;
+  font-size: 1.5rem;
+  font-weight: 700;
+  line-height: 1.3;
+  letter-spacing: 0;
+}
+.direction-sub {
+  margin: 0;
+  font-size: 1.05rem;
+  font-style: italic;
+}
+.direction-zh {
+  margin: 0.2rem 0 1.4rem;
+  color: var(--muted);
+}
+.arc {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: arc;
+}
+.arc li {
+  margin: 0;
+  padding: 0.75rem 0 0.75rem 2.2rem;
+  border-top: 1px solid var(--rule-strong);
+  position: relative;
+  counter-increment: arc;
+}
+.arc li::before {
+  content: counter(arc);
+  position: absolute;
+  left: 0;
+  top: 0.75rem;
+  font-family: var(--mono);
+  font-weight: 600;
+}
+.arc-step {
+  display: block;
+  font-weight: 700;
+}
+.direction-more {
+  margin: 1rem 0 0;
+  font-size: 0.92rem;
 }
 
 /* ── 區塊 ─────────────────────────────────────────────────────────────────── */
@@ -491,6 +578,9 @@ footer p {
   }
   .hero h1 {
     font-size: 1.6rem;
+  }
+  .direction-title {
+    font-size: 1.3rem;
   }
   .contact li {
     flex-direction: column;
