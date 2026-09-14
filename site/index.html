@@ -101,6 +101,7 @@
           <li><a href="#direction">博士方向</a></li>
           <li><a href="#research">研究</a></li>
           <li><a href="#publications">著作</a></li>
+          <li><a href="#projects">作品</a></li>
           <li><a href="#experience">學經歷</a></li>
           <li><a href="#credentials">證照</a></li>
           <li><a href="#contact">聯絡</a></li>
@@ -469,6 +470,39 @@
             <p>
               量化兩個崩潰根因，並以八變體消融與跨版本配對診斷證偽
               「開環誤差可預測閉環可行性」這個普遍做法。
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <!-- ────────────────────────────────────────────── 實作作品 -->
+      <!--
+        內容只取自專案 README 明載的功能與技術（2026-09-14 核對）；
+        使用者確認為個人專案。
+      -->
+      <section id="projects">
+        <div class="wrap">
+          <h2>實作作品</h2>
+
+          <article class="pub">
+            <p class="pub-kind">個人專案 · 開源（MIT）</p>
+            <h3>交通違規影像分析系統</h3>
+            <p class="pub-meta">
+              NVIDIA Jetson AGX Orin · TensorRT 10.3 · Python 3.10 · FastAPI · Vue 3
+            </p>
+            <p>
+              以 NVIDIA Jetson 邊緣平台實作車輛偵測（YOLOv8n + TensorRT）、
+              台灣車牌辨識（5 變體 ensemble、多幀投票與格式修復）、
+              闖紅燈／超速／違規停車／逆向行駛偵測（ROI、規則引擎與信心度檢查），
+              以及四級壅塞判定、速度量測與 Frigate NVR 整合。
+            </p>
+            <p>
+              停車場車位佔用判定結合 YOLO、分類器與 Qwen2-VL 視覺語言模型仲裁。
+            </p>
+            <p>
+              <a href="https://github.com/sanniel0315/traffic-violation-detection"
+                >github.com/sanniel0315/traffic-violation-detection</a
+              >
             </p>
           </article>
         </div>
