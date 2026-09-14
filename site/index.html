@@ -505,6 +505,49 @@
               >
             </p>
           </article>
+
+          <article class="pub">
+            <p class="pub-kind">個人專案 · 原始碼未公開</p>
+            <h3>InsightGuard 智守安防平台與 Insight Watch 手機 App</h3>
+            <p class="pub-meta">
+              FastAPI · Vue 3 · Frigate NVR · go2rtc · YOLO · Expo／React Native
+            </p>
+            <p>
+              以上述交通違規系統為主體衍生的安防影像分析平台。NVR 的動態與物件偵測只作粗篩，
+              每筆告警都須經 YOLO 模型複驗才成立；車牌辨識沿用跨幀投票，並與黑名單比對。
+              每筆告警附四張佐證照片（全景含偵測框、物件放大、車牌特寫、延時複核），
+              另有趨勢、熱點與重複出現車輛等報表，可匯出 CSV／PDF。
+            </p>
+            <p>
+              Insight Watch 為對應的手機 App，可同時連接多個監控站，
+              提供即時直播、錄影回放、告警與車牌紀錄、推播通知、電子地圖、PTZ 控制、
+              門口機對講，以及生物辨識解鎖。
+            </p>
+          </article>
+
+          <article class="pub">
+            <p class="pub-kind">個人專案 · 網頁版開源（MIT）· App 原始碼未公開</p>
+            <h3>CardSnap 名片整理 App</h3>
+            <p class="pub-meta">
+              PWA · Expo／React Native · Qwen2.5-VL · Ollama · Supabase · GitHub Actions
+            </p>
+            <p>
+              拍攝名片後自動建檔：預設送至自架 GPU 伺服器，由 Qwen2.5-VL 視覺語言模型辨識並抽取
+              姓名、公司、職稱、電話、Email、地址等結構化欄位；伺服器無法連線時，
+              自動退回瀏覽器端 Tesseract.js（繁體中文＋英文）。
+            </p>
+            <p>
+              提供名單管理、全文搜尋、標籤、CSV／vCard 匯出、QR Code 分享，
+              資料可經 Supabase 或使用者自己的 Google Drive 同步，網頁版與 App 共用同一格式。
+              網頁版為 PWA，推送後由 GitHub Actions 先跑單元測試，通過才部署；
+              手機 App 另支援 Apple／Google 登入、文件掃描與生物辨識鎖。
+            </p>
+            <p>
+              <a href="https://github.com/sanniel0315/cardsnap"
+                >github.com/sanniel0315/cardsnap</a
+              >
+            </p>
+          </article>
         </div>
       </section>
 
